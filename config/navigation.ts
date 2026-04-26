@@ -20,7 +20,7 @@ export const navigationLinks = [
 
   {
     label: "About",
-    href: "/about",
+    href: "/aboutus",
   },
 ];
 
@@ -49,7 +49,7 @@ export const mobileNavigationLinks = [
 
   {
     label: "About",
-    href: "/about",
+    href: "/aboutus",
     icon: User,
   },
 ];
