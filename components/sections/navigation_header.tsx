@@ -11,14 +11,10 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { navigationLinks } from "@/config/navigation";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { Menu } from "lucide-react";
 import { useScrollEffect } from "@/hooks/useScrollEffect";
-import MobileMenu from "../ui/MobileMenu";
 import Container from './../layouts/container';
 
 export default function NavigationHeader() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const isScrolled = useScrollEffect(); // ← Add Yeh Line
   return (
@@ -63,19 +59,8 @@ export default function NavigationHeader() {
               Contact
             </Button>
           </div>
-          <button
-            className="md:hidden fixed bottom-12 right-8 w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center shadow-lg z-40 hover:bg-gray-800 transition"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-          >
-            <Menu size={24} className="text-white" />
-          </button>
         </div>
       </Container>
-      <MobileMenu
-        open={mobileMenuOpen}
-        onClose={() => setMobileMenuOpen(false)}
-      />
     </div>
   );
 }

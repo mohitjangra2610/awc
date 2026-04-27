@@ -29,11 +29,25 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 export default async function StatsHorizontal() {
   let stats: Stat[] = [];
+  let error: string | null = null;
 
   try {
     stats = await getStats();
-  } catch (error) {
-    console.error('Error fetching stats:', error);
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : 'Failed to fetch stats';
+    error = errorMessage;
+    console.error('Error fetching stats in StatsHorizontal:', errorMessage);
+  }
+
+  if (error) {
+    return (
+      <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+        <p className="text-sm text-red-600">Unable to load statistics. Please try again later.</p>
+        {process.env.NODE_ENV === 'development' && (
+          <p className="text-xs text-red-500 mt-2">Debug: {error}</p>
+        )}
+      </div>
+    );
   }
 
   if (!stats || stats.length === 0) {
@@ -47,16 +61,16 @@ export default async function StatsHorizontal() {
         const Icon = iconMap[iconKey] || FileText;
 
         return (
-          <div key={item.id} className="flex-1 text-center">
-            <div className="flex items-center justify-center text-gray-900 p-2 rounded-md bg-blue-100 w-12 h-12 mx-auto">
-              <Icon className="w-6 h-6 " />
+          <div key={item.id} className="flex-1 text-start">
+            <div className="flex items-center justify-center text-gray-900 p-2 rounded-md bg-blue-100 w-12 h-12">
+              <Icon className="w-6 h-6" />
             </div>
 
-            <h4 className="text-xl md:text-xl font-bold text-gray-800 mt-4">
+            <h3 className="text-lg md:text-lg font-bold text-gray-800 mt-4">
               {item.number}
-            </h4>
+            </h3>
 
-            <p className="mt-2 text-sm text-gray-600 font-medium">
+            <p className="text-sm text-gray-600 font-medium">
               {item.title}
             </p>
           </div>

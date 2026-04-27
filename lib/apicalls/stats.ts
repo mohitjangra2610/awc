@@ -1,6 +1,10 @@
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const TENANT_ID = process.env.NEXT_PUBLIC_TENANT_ID!;
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const TENANT_ID = process.env.NEXT_PUBLIC_TENANT_ID;
+
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY || !TENANT_ID) {
+  throw new Error('Missing required environment variables');
+}
 
 export interface Stat {
   id: string;
@@ -23,25 +27,33 @@ export async function getStats(): Promise<Stat[]> {
     `&is_active=eq.true` +
     `&order=display_order.asc`;
 
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      apikey: SUPABASE_ANON_KEY,
-      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-      Accept: 'application/json',
-    },
-    cache: 'no-store',
-  });
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        apikey: SUPABASE_ANON_KEY || '',
+        Authorization: `Bearer ${SUPABASE_ANON_KEY || ''}`,
+        Accept: 'application/json',
+      } as Record<string, string>,
+      cache: 'no-store',
+    });
 
-  const text = await response.text();
+    const text = await response.text();
 
-  console.log('RAW_RESPONSE:', text);
+    if (!response.ok) {
+      console.error(`Stats fetch failed with status ${response.status}:`, text);
+      throw new Error(`Stats fetch failed ${response.status}`);
+    }
 
-  if (!response.ok) {
-    throw new Error(`Stats fetch failed ${response.status}: ${text}`);
+    if (!text) {
+      console.warn('Stats API returned empty response');
+      return [];
+    }
+
+    const data = JSON.parse(text) as Stat[];
+    return data;
+  } catch (error) {
+    console.error('Error fetching stats from Supabase:', error);
+    throw error;
   }
-
-  const data = JSON.parse(text) as Stat[];
-
-  return data;
 }

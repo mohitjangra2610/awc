@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import {
   Drawer,
   DrawerClose,
@@ -25,6 +26,17 @@ export default function MobileMenu({
   onClose,
 }: Readonly<MobileMenuProps>) {
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
     <Drawer open={open} onOpenChange={onClose}>
@@ -65,6 +77,9 @@ export default function MobileMenu({
         <DrawerFooter className="px-4 space-y-1 pb-8">
           <Button className="w-full" variant="default" size="lg">
             Contact
+          </Button>
+          <Button className="w-full" variant="outline" size="lg">
+            Join Our Team
           </Button>
         </DrawerFooter>
       </DrawerContent>  

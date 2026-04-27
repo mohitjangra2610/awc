@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NavigationHeader from "@/components/sections/navigation_header";
+import MobileMenuButton from "@/components/ui/MobileMenuButton";
 import Container from "@/components/layouts/container";
 
 const inter = Inter({
@@ -25,9 +26,10 @@ export default function RootLayout({
       <body className="flex bg-gray-50 pt-16">
         <NavigationHeader />
         <Container>
-        <main>{children}</main>
-
+          <main>{children}</main>
         </Container>
+        <MobileMenuButton />
+        <div id="modal-root" />
       </body>
     </html>
   );
