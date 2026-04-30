@@ -1,4 +1,5 @@
 import { fetchFromAPI } from '../api-client';
+import { getMemoryCachedData } from '../cache/memory-cache';
 
 export interface Stat {
   id: string;
@@ -83,7 +84,14 @@ function normalizeStat(stat: StatPayload): Stat | null {
   };
 }
 
-async function fetchStatsFromSupabase(
+export async function fetchStatsFromSupabase(): Promise<StatPayload[]> {
+  return getMemoryCachedData<StatPayload[]>(
+    `stats:${TENANT_ID}`,
+    600, // 10 minutes
+    () => fetchStatsFromSupabaseProxy()
+  );
+}
+async function fetchStatsFromSupabaseProxy(
   signal?: AbortSignal
 ): Promise<StatPayload[]> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -130,7 +138,7 @@ export async function getStats(
       typeof globalThis.window === 'undefined');
 
   const data = shouldUseServerSource
-    ? await fetchStatsFromSupabase(options.signal)
+    ? await fetchStatsFromSupabase()
     : await fetchFromAPI<StatPayload[]>('/stats', {
         signal: options.signal,
       });

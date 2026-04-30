@@ -68,7 +68,7 @@ export default function StatsSection({
   }
 
   return (
-    <section className="w-full">
+    <section className="w-full  sm:py-12 px-6 md:px-0 py-6 lg:px-0 py-12">
       <div className="grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-4 md:gap-6 w-full">
         {stats.map((item) => {
           const iconKey = item.icon?.toLowerCase().trim() || "file";

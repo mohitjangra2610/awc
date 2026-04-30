@@ -37,7 +37,7 @@ export default function StatsHorizontal({
   stats,
   loading,
   error,
-}: StatsHorizontalProps) {
+}: Readonly<StatsHorizontalProps>) {
 
   if (loading) {
     return (
@@ -58,13 +58,14 @@ export default function StatsHorizontal({
   }
 
   return (
-    <div className="flex flex-row items-center justify-between gap-6">
+    <div className="flex flex-row w items-start justify-between">
       {stats.map((item) => {
         const iconKey = item.icon?.toLowerCase().trim() || 'file';
         const Icon = iconMap[iconKey] || FileText;
 
         return (
-          <div key={item.id} className="flex-1 text-start">
+        
+          <div key={item.id} className='flex flex-col w-7xl items-start justify-stretch'>
             <div className="flex items-center justify-center text-gray-900 p-2 rounded-md bg-blue-100 w-12 h-12">
               <Icon className="w-6 h-6" />
             </div>
@@ -73,7 +74,7 @@ export default function StatsHorizontal({
               {item.number}
             </h3>
 
-            <p className="text-sm text-gray-600 font-medium">
+            <p className="text-sm text-gray-600 font-medium text-left">
               {item.title}
             </p>
           </div>

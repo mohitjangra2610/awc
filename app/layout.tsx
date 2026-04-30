@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NavigationHeader from "@/components/sections/navigation_header";
 import MobileMenuButton from "@/components/ui/MobileMenuButton";
-import Container from "@/components/layouts/container";
+import Services from "./services/page";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,7 +13,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "America Wealth Corp",
-  description: "Elevate Your Financial Future with America Wealth Corp - Your Trusted Partner in Personalized Wealth Management and Intelligent Investment Strategies for Sustainable Growth.",
+  description:
+    "Elevate Your Financial Future with America Wealth Corp - Your Trusted Partner in Personalized Wealth Management and Intelligent Investment Strategies for Sustainable Growth.",
 };
 
 export default function RootLayout({
@@ -23,13 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="flex bg-gray-50 pt-16">
+      <body>
         <NavigationHeader />
-        <Container>
-          <main>{children}</main>
-        </Container>
+        <main className="pt-16 min-h-screen">{children}</main>
         <MobileMenuButton />
-        <div id="modal-root" />
       </body>
     </html>
   );

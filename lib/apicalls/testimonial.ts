@@ -1,5 +1,5 @@
-import { Testimonial } from '@/type/supabase';
-import { fetchFromAPI } from '../api-client';
+import { Testimonial } from "@/type/supabase";
+import { getMemoryCachedData } from "../cache/memory-cache";
 
 type TestimonialPayload = Partial<Testimonial> & {
   id?: string | number | null;
@@ -7,23 +7,23 @@ type TestimonialPayload = Partial<Testimonial> & {
 
 interface GetTestimonialsOptions {
   signal?: AbortSignal;
-  source?: 'auto' | 'client' | 'server';
+  source?: "auto" | "client" | "server";
 }
 
 const TENANT_ID = process.env.NEXT_PUBLIC_TENANT_ID;
 
 if (!TENANT_ID) {
-  throw new Error('Missing NEXT_PUBLIC_TENANT_ID environment variable');
+  throw new Error("Missing NEXT_PUBLIC_TENANT_ID environment variable");
 }
 
 function normalizeTestimonial(
-  testimonial: TestimonialPayload
+  testimonial: TestimonialPayload,
 ): Testimonial | null {
   if (
     testimonial.id === null ||
     testimonial.id === undefined ||
-    typeof testimonial.message !== 'string' ||
-    typeof testimonial.full_name !== 'string'
+    typeof testimonial.message !== "string" ||
+    typeof testimonial.full_name !== "string"
   ) {
     return null;
   }
@@ -31,43 +31,39 @@ function normalizeTestimonial(
   return {
     id: String(testimonial.id),
     tenant_id:
-      typeof testimonial.tenant_id === 'string'
+      typeof testimonial.tenant_id === "string"
         ? testimonial.tenant_id
         : TENANT_ID!,
     message: testimonial.message,
     image_url:
-      typeof testimonial.image_url === 'string'
-        ? testimonial.image_url
-        : null,
+      typeof testimonial.image_url === "string" ? testimonial.image_url : null,
     full_name: testimonial.full_name,
     star_rating:
-      typeof testimonial.star_rating === 'number'
-        ? testimonial.star_rating
-        : 5,
+      typeof testimonial.star_rating === "number" ? testimonial.star_rating : 5,
     is_active: testimonial.is_active !== false,
     display_order:
-      typeof testimonial.display_order === 'number'
+      typeof testimonial.display_order === "number"
         ? testimonial.display_order
         : 0,
     created_at:
-      typeof testimonial.created_at === 'string'
+      typeof testimonial.created_at === "string"
         ? testimonial.created_at
         : new Date(0).toISOString(),
     updated_at:
-      typeof testimonial.updated_at === 'string'
+      typeof testimonial.updated_at === "string"
         ? testimonial.updated_at
         : new Date(0).toISOString(),
   };
 }
 
 async function fetchTestimonialsFromSupabase(
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<TestimonialPayload[]> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const apiKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !apiKey) {
-    throw new Error('Missing Supabase credentials');
+    throw new Error("Missing Supabase credentials");
   }
 
   const response = await fetch(
@@ -77,45 +73,39 @@ async function fetchTestimonialsFromSupabase(
       headers: {
         apikey: apiKey,
         Authorization: `Bearer ${apiKey}`,
-        Accept: 'application/json',
+        Accept: "application/json",
       },
-       next: {
-      revalidate: 300, // 5 minutes = 300 seconds
+      next: {
+        revalidate: 300, // 5 minutes = 300 seconds
+      },
     },
-    }
   );
 
   if (!response.ok) {
     throw new Error(
-      `Supabase testimonials request failed (${response.status})`
+      `Supabase testimonials request failed (${response.status})`,
     );
   }
 
   return response.json() as Promise<TestimonialPayload[]>;
 }
-
-export async function getTestimonials(
-  options: GetTestimonialsOptions = {}
+export async function getTestimonials(options: GetTestimonialsOptions = {}): Promise<Testimonial[]> {
+  return getMemoryCachedData<Testimonial[]>(
+    `stats:${TENANT_ID}`,
+    600, // 10 minutes
+    () => getTestimonialsProxy(options)
+  );
+}
+export async function getTestimonialsProxy(
+  options: GetTestimonialsOptions = {},
 ): Promise<Testimonial[]> {
-  const shouldUseServerSource =
-    options.source === 'server' ||
-    (options.source !== 'client' &&
-      typeof globalThis.window === 'undefined');
-
-  const data = shouldUseServerSource
-    ? await fetchTestimonialsFromSupabase(options.signal)
-    : await fetchFromAPI<TestimonialPayload[]>('/testimonials', {
-        signal: options.signal,
-      });
-
+  const data =  await fetchTestimonialsFromSupabase(options.signal)
   if (!Array.isArray(data)) {
     return [];
   }
 
   return data
     .map(normalizeTestimonial)
-    .filter(
-      (testimonial): testimonial is Testimonial => testimonial !== null
-    )
+    .filter((testimonial): testimonial is Testimonial => testimonial !== null)
     .sort((left, right) => left.display_order - right.display_order);
 }

@@ -1,4 +1,9 @@
-"use client";
+'use client';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Button } from '../ui/button';
+import { usePathname } from 'next/navigation';
+import { useScrollEffect } from '@/hooks/useScrollEffect';
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -6,33 +11,30 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import Link from "next/link";
-import Image from "next/image";
-import { Button } from "../ui/button";
-import { navigationLinks } from "@/config/navigation";
-import { usePathname } from "next/navigation";
-import { useScrollEffect } from "@/hooks/useScrollEffect";
-import Container from "./../layouts/container";
-
+import { navigationLinks } from '@/config/navigation';
 export default function NavigationHeader() {
   const pathname = usePathname();
-  const isScrolled = useScrollEffect(); // ← Add Yeh Line
+  const isScrolled = useScrollEffect();
+
   return (
     <div
-      className={`fixed top-0 left-0 right-0 w-full border-b h-16 flex items-center justify-between z-10 transition-all duration-300 ${
-        isScrolled ? "bg-white/70 backdrop-blur-md shadow-sm" : "bg-white"
+      className={`fixed top-0 left-0 right-0 w-full border-b h-16 flex items-center z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-white/70 backdrop-blur-md shadow-sm'
+          : 'bg-white'
       }`}
     >
-      <Container>
-        <div className="w-full flex items-center justify-between">
-          <Image
-            src="/aws_logo.svg"
-            alt="logo"
-            width={130}
-            height={60}
-            className="w-32 h-auto"
-          />
-          <nav className="hidden md:flex">
+      <div className="w-full mx-auto max-w-7xl px-4 sm:px-6 md:px-8 flex items-center justify-between">
+        
+        {/* Logo */}
+        <Image
+          src="/aws_logo.svg"
+          alt="logo"
+          width={130}
+          height={60}
+          className="w-28 md:w-32 h-auto"
+        />
+         <nav className="hidden md:flex">
             <NavigationMenu>
               <NavigationMenuList className="flex gap-2">
                 {navigationLinks.map((link) => {
@@ -52,18 +54,14 @@ export default function NavigationHeader() {
               </NavigationMenuList>
             </NavigationMenu>
           </nav>
-
-          <div className="hidden md:flex row-auto items-center gap-4">
-            <Button variant="outline" size="lg">
-              Join Our Team
-            </Button>
-
-            <Button variant="default" size="lg">
-              Contact
-            </Button>
-          </div>
+        {/* Desktop Buttons */}
+        <div className="hidden md:flex gap-3">
+          <Button variant="outline">Join Our Team</Button>
+          <Button variant="default">Contact</Button>
         </div>
-      </Container>
+
+       
+      </div>
     </div>
   );
 }
