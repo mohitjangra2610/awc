@@ -4,6 +4,7 @@ import "./globals.css";
 import NavigationHeader from "@/components/sections/navigation_header";
 import MobileMenuButton from "@/components/ui/MobileMenuButton";
 import Services from "./services/page";
+import { Footer } from "@/components/layouts/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,6 +29,7 @@ export default function RootLayout({
         <NavigationHeader />
         <main className="pt-16 min-h-screen">{children}</main>
         <MobileMenuButton />
+        <Footer/>
       </body>
     </html>
   );

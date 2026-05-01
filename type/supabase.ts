@@ -472,8 +472,51 @@ export interface Database {
           created_at?: string;
         };
       };
+
+      team: {
+        Row: Team;
+        Insert: {
+          id?: string;
+          tenant_id: string;
+
+          full_name: string;
+          email: string;
+          phone?: string | null;
+          message?: string | null;
+
+          is_active?: boolean;
+
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+
+          full_name?: string;
+          email?: string;
+          phone?: string | null;
+          message?: string | null;
+
+          is_active?: boolean;
+
+          created_at?: string;
+        };
+      };
     };
   };
+}
+export interface Team {
+  id: string;
+  tenant_id: string;
+
+  full_name: string;
+  email: string;
+  phone: string | null;
+  message: string | null;
+
+  is_active: boolean;
+
+  created_at: string;
 }
 
 export type EventRow = Database["public"]["Tables"]["events"]["Row"];
@@ -488,3 +531,8 @@ export type PartnerRow = Database["public"]["Tables"]["partners"]["Row"];
 export type ServiceRow = Database["public"]["Tables"]["services"]["Row"];
 
 export type ServiceFaqRow = Database["public"]["Tables"]["service_faqs"]["Row"];
+export type TeamRow = Database["public"]["Tables"]["team"]["Row"];
+
+export type TeamInsert = Database["public"]["Tables"]["team"]["Insert"];
+
+export type TeamUpdate = Database["public"]["Tables"]["team"]["Update"];

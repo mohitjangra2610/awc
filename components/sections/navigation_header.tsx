@@ -27,6 +27,7 @@ export default function NavigationHeader() {
       <div className="w-full mx-auto max-w-7xl px-4 sm:px-6 md:px-8 flex items-center justify-between">
         
         {/* Logo */}
+        <Link href="/">
         <Image
           src="/aws_logo.svg"
           alt="logo"
@@ -34,6 +35,7 @@ export default function NavigationHeader() {
           height={60}
           className="w-28 md:w-32 h-auto"
         />
+        </Link>
          <nav className="hidden md:flex">
             <NavigationMenu>
               <NavigationMenuList className="flex gap-2">

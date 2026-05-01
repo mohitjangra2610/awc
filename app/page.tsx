@@ -11,6 +11,7 @@ import ScheduleCallButton from "@/components/ui/SheduleCall";
 import Services from "./services/page";
 import { ServicesSkeleton } from "@/components/layouts/ServicesSkeleton";
 import { ServicesUI } from "@/components/sections/ServicesUI";
+import { JoinTeam } from "@/components/sections/JoinTeam";
 
 export default function Page() {
   return (
@@ -103,6 +104,7 @@ export default function Page() {
           </Suspense>
         </Container>
       </section>
+      <JoinTeam/>
     </main>
   );
 }

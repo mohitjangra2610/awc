@@ -88,9 +88,7 @@ async function fetchServicesFromSupabaseProxy(
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const apiKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  console.log("SUPABASE_URL:", supabaseUrl);
-  console.log("TENANT_ID:", TENANT_ID);
-  console.log("API KEY EXISTS:", Boolean(apiKey));
+
 
   if (!supabaseUrl || !apiKey || !TENANT_ID) {
     throw new Error("Missing Supabase services configuration");
@@ -104,7 +102,7 @@ async function fetchServicesFromSupabaseProxy(
     `&order=display_order.asc` +
     `&service_faqs.order=display_order.asc`;
 
-    console.log("service URL:", url);
+   
 
   const response = await fetch(url, {
     method: "GET",
@@ -118,7 +116,7 @@ async function fetchServicesFromSupabaseProxy(
       revalidate: 300,
     },
   });
-  console.log("Response Status:", response);
+
   if (!response.ok) {
     const text = await response.text();
     throw new Error(`Services request failed (${response.status}): ${text}`);
