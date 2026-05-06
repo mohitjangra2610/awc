@@ -102,7 +102,7 @@ export default function AboutUs() {
             </h1>
 
             <p className="mt-6 text-base leading-8 text-gray-600 sm:text-lg">
-              American Wealth Corp helps you structure income, reduce financial
+              American Wealth helps you structure income, reduce financial
               risk, protect your wealth, and plan for long-term transfer with a
               clear system.
             </p>
