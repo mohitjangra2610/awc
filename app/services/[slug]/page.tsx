@@ -45,7 +45,7 @@ export default async function ServiceDetailPage({
               alt={service.service_name}
               width={1200}
               height={600}
-              className="h-[260px] w-full object-cover sm:h-[380px]"
+              className="h-65 w-full object-cover sm:h-95"
               priority
             />
           </div>
