@@ -50,6 +50,10 @@ export interface EventAddress {
   state: string;
   country: string;
   google_map_location: string;
+  start_at: string;
+  end_at: string | null;
+  location_label: string | null;
+  display_order: number;
   created_at: string;
 }
 
@@ -78,8 +82,6 @@ export interface Event {
   tenant_id: string;
   event_name: string;
   slug: string;
-  start_at: string;
-  end_at: string | null;
   event_type: EventType;
   event_tag: EventTag;
   status: EventStatus;
@@ -123,7 +125,7 @@ export interface Partner {
   updated_at: string;
 }
 export interface EventItem extends Event {
-  event_addresses: EventAddress | null;
+  event_addresses: EventAddress[];
   event_organizers: EventOrganizer[];
   event_gallery: EventGallery[];
 }
@@ -237,8 +239,6 @@ export interface Database {
           tenant_id: string;
           event_name: string;
           slug: string;
-          start_at: string;
-          end_at?: string | null;
           event_type: EventType;
           event_tag?: EventTag;
           status?: EventStatus;
@@ -258,8 +258,6 @@ export interface Database {
           tenant_id?: string;
           event_name?: string;
           slug?: string;
-          start_at?: string;
-          end_at?: string | null;
           event_type?: EventType;
           event_tag?: EventTag;
           status?: EventStatus;
@@ -287,6 +285,10 @@ export interface Database {
           state: string;
           country: string;
           google_map_location: string;
+          start_at: string;
+          end_at?: string | null;
+          location_label?: string | null;
+          display_order?: number;
           created_at?: string;
         };
         Update: {
@@ -298,6 +300,10 @@ export interface Database {
           state?: string;
           country?: string;
           google_map_location?: string;
+          start_at?: string;
+          end_at?: string | null;
+          location_label?: string | null;
+          display_order?: number;
           created_at?: string;
         };
       };

@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "eofmaeoldvzomwwskqgn.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+      },
     ],
     minimumCacheTTL: 60,
   },

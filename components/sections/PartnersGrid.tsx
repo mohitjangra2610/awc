@@ -36,7 +36,7 @@ export function PartnersGrid({
             {partner.heading_text || partner.company_name}
           </h3>
 
-          <p className="mt-5 line-clamp-3 text-xs leading-5 text-[#344054] sm:mt-8 sm:text-sm sm:leading-6">
+          <p className="mt-5 line-clamp-3 text-xs leading-5 text-text-dim sm:mt-8 sm:text-sm sm:leading-6">
             {partner.short_description}
           </p>
         </div>

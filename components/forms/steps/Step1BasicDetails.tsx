@@ -109,7 +109,7 @@ export default function Step1BasicDetails({
             value={form.gender}
             onChange={handleChange}
             required
-            className="w-full h-10 rounded-md border border-[#D0D5DD] px-3 text-sm text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+            className="w-full h-10 rounded-md border border-border px-3 text-sm text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
           >
             <option value="">Select gender</option>
             <option value="Male">Male</option>

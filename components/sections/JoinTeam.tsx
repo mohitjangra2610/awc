@@ -176,19 +176,16 @@ export function JoinTeam() {
           <h3 className="text-2xl md:text-3xl sm:text-md lg:text-2xl font-bold text-gray-900">
             Join Our Team
           </h3>
-          <p className="text-base leading-7 text-[#344054]">
-            Are you driven and coachable? Join US as a financial services
-            entrepreneur. Training provided. No experience necessary. Apply from
-            anywhere in US and Canada. 100% remote possible. Assistance and
-            training provided to get licensed.
+          <p className="text-base leading-7 text-text-dim">
+            Are you driven and coachable? Join us as a financial services entrepreneur. Training provided. No experience necessary. Apply from anywhere in the US and Canada. 100% remote is possible. We provide assistance and training to help you obtain your license.
           </p>
-          <p className="text-sm text-[#667085] italic">*Conditions apply</p>
+          <p className="text-sm text-muted-foreground italic">*Conditions apply</p>
         </div>
 
         {/* RIGHT FORM */}
         <form
           onSubmit={handleSubmit}
-          className="space-y-5 rounded-2xl border border-[#EAECF0] bg-white p-6 shadow-sm"
+          className="space-y-5 rounded-2xl border border-border-muted bg-white p-6 shadow-sm"
         >
           <Field>
             <FieldLabel htmlFor="full_name">Full Name</FieldLabel>
@@ -265,7 +262,7 @@ export function JoinTeam() {
           onClick={(e) => { if (e.target === e.currentTarget) setShowOtpModal(false); }}
           tabIndex={-1}
         >
-          <div className="bg-white rounded-2xl border border-[#EAECF0] shadow-xl p-8 w-full max-w-md mx-4" role="dialog" aria-modal="true" aria-labelledby="otp-modal-title">
+          <div className="bg-white rounded-2xl border border-border-muted shadow-xl p-8 w-full max-w-md mx-4" role="dialog" aria-modal="true" aria-labelledby="otp-modal-title">
             {/* Modal Header */}
             <div className="text-center mb-6">
               <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-3">
@@ -308,7 +305,7 @@ export function JoinTeam() {
                   onChange={(e) => handleOtpChange(i, e.target.value)}
                   onKeyDown={(e) => handleOtpKeyDown(i, e)}
                   onPaste={handleOtpPaste}
-                  className="w-11 text-center text-xl font-semibold border border-[#D0D5DD] rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                  className="w-11 text-center text-xl font-semibold border border-border rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
                   style={{ height: "52px" }}
                 />
               ))}

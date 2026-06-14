@@ -29,7 +29,7 @@ export function ServicesPageGrid({
       <Link
         key={service.id}
         href={`/services/${service.slug}`}
-        className="flex min-h-105 flex-col rounded-lg border border-gray-200 bg-[#FCFCFD] shadow-sm transition-all duration-300 hover:shadow-md"
+        className="flex min-h-105 flex-col rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md"
       >
         <div className="relative h-47.5 w-full overflow-hidden rounded-t-lg sm:h-52.5">
           <Image
@@ -37,6 +37,7 @@ export function ServicesPageGrid({
             alt={service.service_name}
             fill
             className="object-cover"
+            unoptimized
           />
         </div>
 

@@ -27,16 +27,17 @@ export function ServicesGrid({ initialServices }: Readonly<ServicesGridProps>) {
           <Link
             key={service.id}
             href={`/services/${service.slug}`}
-            className="flex items-start gap-6 rounded-xl border border-[#EAECF0] bg-white p-6 transition-all duration-300 hover:shadow-md"
+            className="flex items-start gap-6 rounded-xl border border-border-muted bg-white p-6 transition-all duration-300 hover:shadow-md"
           >
             {/* Left Image */}
-            <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-[#F2F4F7]">
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted">
               <Image
                 src={service.image_url || "https://placehold.co/80x80"}
                 alt={service.service_name}
                 width={80}
                 height={80}
                 className="object-contain"
+                unoptimized
               />
             </div>
 
@@ -46,7 +47,7 @@ export function ServicesGrid({ initialServices }: Readonly<ServicesGridProps>) {
                 {service.service_name}
               </h3>
 
-              <p className="mt-2 text-sm leading-6 text-[#344054] line-clamp-3">
+              <p className="mt-2 text-sm leading-6 text-text-dim line-clamp-3">
                 {service.short_description}
               </p>
 

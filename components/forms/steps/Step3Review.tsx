@@ -27,15 +27,15 @@ function SectionCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-[#EAECF0] overflow-hidden">
-      <div className="flex items-center justify-between px-5 py-4 bg-[#F9FAFB] border-b border-[#EAECF0]">
-        <p className="text-xs font-semibold uppercase tracking-widest text-[#667085]">
+    <div className="rounded-2xl border border-border-muted overflow-hidden">
+      <div className="flex items-center justify-between px-5 py-4 bg-muted border-b border-border-muted">
+        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           {title}
         </p>
         <button
           type="button"
           onClick={() => onEdit(step)}
-          className="flex items-center gap-1.5 text-xs font-semibold text-[#0a1628] hover:text-[#c9a84c] transition-colors"
+          className="flex items-center gap-1.5 text-xs font-semibold text-ink hover:text-gold transition-colors"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
@@ -44,7 +44,7 @@ function SectionCard({
           Edit
         </button>
       </div>
-      <div className="px-5 py-4 bg-white divide-y divide-[#F2F4F7]">
+      <div className="px-5 py-4 bg-white divide-y divide-muted">
         {children}
       </div>
     </div>
@@ -54,8 +54,8 @@ function SectionCard({
 function ReviewRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex items-start justify-between py-3 gap-4">
-      <span className="text-sm text-[#667085] shrink-0 w-44">{label}</span>
-      <span className="text-sm font-medium text-[#101828] text-right">{value || "—"}</span>
+      <span className="text-sm text-muted-foreground shrink-0 w-44">{label}</span>
+      <span className="text-sm font-medium text-foreground text-right">{value || "—"}</span>
     </div>
   );
 }
@@ -69,11 +69,11 @@ function formatValue(field: ServiceField, value: unknown): React.ReactNode {
     return (
       <div className="space-y-1">
         {children.map((child, i) => (
-          <div key={`child-${child.name || i}-${child.age}`} className="inline-flex items-center gap-1.5 bg-[#F2F4F7] rounded-full px-3 py-1 text-xs font-medium text-[#344054]">
+          <div key={`child-${child.name || i}-${child.age}`} className="inline-flex items-center gap-1.5 bg-muted rounded-full px-3 py-1 text-xs font-medium text-text-dim">
             <span>{child.name || `Child ${i + 1}`}</span>
-            <span className="text-[#667085]">·</span>
+            <span className="text-muted-foreground">·</span>
             <span>Age {child.age}</span>
-            <span className="text-[#667085]">·</span>
+            <span className="text-muted-foreground">·</span>
             <span>{child.gender}</span>
           </div>
         ))}
@@ -107,7 +107,7 @@ export default function Step3Review({
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-gray-800">Review Your Details</h2>
-        <p className="text-sm text-[#667085] mt-1">
+        <p className="text-sm text-muted-foreground mt-1">
           Please review everything carefully before submitting. You can edit any section.
         </p>
       </div>
@@ -121,13 +121,13 @@ export default function Step3Review({
           </svg>
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-xs text-[#c9a84c] font-semibold uppercase tracking-widest mb-0.5">Selected Service</p>
+          <p className="text-xs text-gold font-semibold uppercase tracking-widest mb-0.5">Selected Service</p>
           <p className="text-white font-semibold text-sm truncate">{selectedService.name}</p>
         </div>
         <button
           type="button"
           onClick={() => onEdit(1)}
-          className="text-xs text-[#c9a84c] font-semibold hover:underline shrink-0"
+          className="text-xs text-gold font-semibold hover:underline shrink-0"
         >
           Change
         </button>
@@ -186,7 +186,7 @@ export default function Step3Review({
         </Button>
         <Button
           variant="default"
-          className="flex-1 py-6 bg-[#0a1628] hover:bg-[#0a1628]/90 text-white"
+          className="flex-1 py-6 bg-ink hover:bg-ink/90 text-white"
           onClick={onSubmit}
           disabled={submitLoading}
         >

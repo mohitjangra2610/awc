@@ -135,8 +135,9 @@ export default function OtpModal({ email, token, setToken, onVerified, onClose }
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden">
 
         {/* Top bar */}
-        <div className="bg-[#0a1628] px-6 pt-6 pb-8 relative">
+        <div className="bg-ink px-6 pt-6 pb-8 relative">
           <button
+            type="button"
             onClick={onClose}
             className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
           >
@@ -147,7 +148,7 @@ export default function OtpModal({ email, token, setToken, onVerified, onClose }
           </button>
 
           {/* Icon */}
-          <div className="w-12 h-12 rounded-2xl bg-[#c9a84c]/20 flex items-center justify-center mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-gold/20 flex items-center justify-center mb-4">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
@@ -157,7 +158,7 @@ export default function OtpModal({ email, token, setToken, onVerified, onClose }
           <h2 className="text-xl font-bold text-white">Verify Your Email</h2>
           <p className="text-sm text-gray-400 mt-1 leading-relaxed">
             We sent a 6-digit code to{" "}
-            <span className="text-[#c9a84c] font-medium">{email}</span>
+            <span className="text-gold font-medium">{email}</span>
           </p>
         </div>
 
@@ -177,9 +178,9 @@ export default function OtpModal({ email, token, setToken, onVerified, onClose }
                 onChange={(e) => handleChange(i, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(i, e)}
                 className={`w-11 h-14 text-center text-xl font-bold rounded-xl border-2 outline-none transition-all
-                  ${digit ? "border-[#0a1628] bg-[#0a1628]/5 text-[#0a1628]" : "border-[#EAECF0] text-gray-900"}
+                  ${digit ? "border-ink bg-ink/5 text-ink" : "border-border-muted text-gray-900"}
                   ${error ? "border-red-400 bg-red-50" : ""}
-                  focus:border-[#c9a84c] focus:ring-2 focus:ring-[#c9a84c]/20
+                  focus:border-gold focus:ring-2 focus:ring-gold/20
                 `}
               />
             ))}
@@ -199,7 +200,7 @@ export default function OtpModal({ email, token, setToken, onVerified, onClose }
 
           {/* Verify button */}
           <Button
-            className="w-full py-6 bg-[#0a1628] hover:bg-[#0a1628]/90 text-white font-semibold"
+            className="w-full py-6 bg-ink hover:bg-ink/90 text-white font-semibold"
             onClick={handleVerify}
             disabled={loading || otp.join("").length !== 6}
           >
@@ -216,18 +217,18 @@ export default function OtpModal({ email, token, setToken, onVerified, onClose }
           </Button>
 
           {/* Resend */}
-          <p className="text-center text-sm text-[#667085]">
+          <p className="text-center text-sm text-muted-foreground">
             Didn&apos;t receive the code?{" "}
             {resendCooldown > 0 ? (
-              <span className="text-[#667085]">
-                Resend in <span className="font-semibold text-[#0a1628]">{resendCooldown}s</span>
+              <span className="text-muted-foreground">
+                Resend in <span className="font-semibold text-ink">{resendCooldown}s</span>
               </span>
             ) : (
               <button
                 type="button"
                 onClick={handleResend}
                 disabled={resendLoading}
-                className="font-semibold text-[#0a1628] hover:text-[#c9a84c] transition-colors disabled:opacity-50"
+                className="font-semibold text-ink hover:text-gold transition-colors disabled:opacity-50"
               >
                 {resendLoading ? "Sending..." : "Resend OTP"}
               </button>

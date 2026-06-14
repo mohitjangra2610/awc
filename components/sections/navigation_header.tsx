@@ -31,7 +31,7 @@ export default function NavigationHeader() {
             alt="logo"
             width={160}
             height={80}
-            className=" lg:w-48  md:w-32 h-auto sm:w-28 h- auto"
+            className="lg:w-48 md:w-32 h-auto sm:w-28"
           />
         </Link>
         <nav className="hidden md:flex">

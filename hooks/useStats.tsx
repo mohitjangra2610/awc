@@ -16,6 +16,7 @@ export function useStats(): UseStatsReturn {
 
   useEffect(() => {
     const controller = new AbortController();
+    let mounted = true;
 
     async function loadStats() {
       try {
@@ -27,19 +28,26 @@ export function useStats(): UseStatsReturn {
           source: 'client',
         });
 
-        setStats(data);
+        if (mounted) {
+          setStats(data);
+        }
       } catch (err) {
-        if ((err as Error).name !== 'AbortError') {
+        if (mounted && (err as Error).name !== 'AbortError') {
           setError('Failed to load stats');
         }
       } finally {
-        setLoading(false);
+        if (mounted) {
+          setLoading(false);
+        }
       }
     }
 
     loadStats();
 
-    return () => controller.abort();
+    return () => {
+      mounted = false;
+      controller.abort();
+    };
   }, []);
 
   return {

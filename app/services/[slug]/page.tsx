@@ -39,7 +39,7 @@ export default async function ServiceDetailPage({
       <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[1fr_360px]">
         {/* Left Content */}
         <section className="space-y-8">
-          <div className="overflow-hidden rounded-2xl border border-[#EAECF0] bg-[#F9FAFB]">
+          <div className="overflow-hidden rounded-2xl border border-border-muted bg-muted">
             <Image
               src={service.image_url || "https://placehold.co/1200x600"}
               alt={service.service_name}
@@ -47,6 +47,7 @@ export default async function ServiceDetailPage({
               height={600}
               className="h-65 w-full object-cover sm:h-95"
               priority
+              unoptimized
             />
           </div>
 
@@ -60,14 +61,14 @@ export default async function ServiceDetailPage({
             </h1>
 
             {service.subheading ? (
-              <p className="text-lg leading-8 text-[#344054]">
+              <p className="text-lg leading-8 text-text-dim">
                 {service.subheading}
               </p>
             ) : null}
           </div>
 
           <article className="prose prose-neutral max-w-none">
-            <p className="whitespace-pre-line text-base leading-8 text-[#344054]">
+            <p className="whitespace-pre-line text-base leading-8 text-text-dim">
               {service.content}
             </p>
           </article>
@@ -85,7 +86,7 @@ export default async function ServiceDetailPage({
                       {faq.question}
                     </AccordionTrigger>
 
-                    <AccordionContent className="text-sm leading-7 text-[#344054]">
+                    <AccordionContent className="text-sm leading-7 text-text-dim">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
@@ -97,7 +98,7 @@ export default async function ServiceDetailPage({
 
         {/* Right Sidebar */}
         <aside className="space-y-6 lg:sticky lg:top-24 lg:h-fit">
-          <Card className="rounded-2xl border-[#EAECF0] shadow-sm">
+          <Card className="rounded-2xl border-border-muted shadow-sm">
             <CardContent className="p-5">
               <h2 className="text-lg font-bold text-black">All Services</h2>
 
@@ -113,7 +114,7 @@ export default async function ServiceDetailPage({
                       className={`w-full justify-between rounded-xl ${
                         isActive
                           ? "bg-blue-600 text-white hover:bg-blue-700"
-                          : "text-[#344054] hover:bg-[#F2F4F7]"
+                          : "text-text-dim hover:bg-muted"
                       }`}
                     >
                       <Link href={`/services/${item.slug}`}>
@@ -127,13 +128,13 @@ export default async function ServiceDetailPage({
             </CardContent>
           </Card>
 
-          <Card className="rounded-2xl border-[#EAECF0] shadow-sm">
+          <Card className="rounded-2xl border-border-muted shadow-sm">
             <CardContent className="space-y-4 p-5">
               <h2 className="text-lg font-bold text-black">
                 Need help choosing?
               </h2>
 
-              <p className="text-sm leading-6 text-[#344054]">
+              <p className="text-sm leading-6 text-text-dim">
                 Talk to our team or request a free quote for this service.
               </p>
 

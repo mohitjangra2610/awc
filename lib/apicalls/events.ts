@@ -13,7 +13,7 @@ import type {
 type EventPayload = Partial<EventItem> & {
   id?: string | number | null;
   tenant_id?: string | null;
-  event_addresses?: EventAddress | EventAddress[] | null;
+  event_addresses?: EventAddress[] | null;
   event_organizers?: EventOrganizer[] | null;
   event_gallery?: EventGallery[] | null;
 };
@@ -62,18 +62,21 @@ function isEventStatus(value: unknown): value is EventStatus {
   );
 }
 
-function normalizeAddress(
-  address: EventPayload["event_addresses"]
-): EventAddress | null {
-  if (!address) {
-    return null;
+function normalizeAddresses(
+  addresses: EventPayload["event_addresses"]
+): EventAddress[] {
+  if (!Array.isArray(addresses)) {
+    return [];
   }
 
-  if (Array.isArray(address)) {
-    return address[0] ?? null;
-  }
-
-  return address;
+  return [...addresses]
+    .filter((a) => a && typeof a === "object")
+    .sort(
+      (left, right) =>
+        (left.display_order ?? 0) - (right.display_order ?? 0) ||
+        new Date(left.start_at ?? 0).getTime() -
+          new Date(right.start_at ?? 0).getTime()
+    );
 }
 
 function normalizeEvent(event: EventPayload): EventItem | null {
@@ -83,11 +86,10 @@ function normalizeEvent(event: EventPayload): EventItem | null {
 
   const eventName = readString(event.event_name);
   const slug = readString(event.slug);
-  const startAt = readString(event.start_at);
   const registrationLink = readString(event.registration_link);
   const completeDescription = readString(event.complete_description);
 
-  if (!eventName || !slug || !startAt || !registrationLink || !completeDescription) {
+  if (!eventName || !slug || !registrationLink || !completeDescription) {
     return null;
   }
 
@@ -98,9 +100,6 @@ function normalizeEvent(event: EventPayload): EventItem | null {
 
     event_name: eventName,
     slug,
-
-    start_at: startAt,
-    end_at: readNullableString(event.end_at),
 
     event_type: isEventType(event.event_type) ? event.event_type : "offline",
     event_tag: isEventTag(event.event_tag) ? event.event_tag : "free",
@@ -123,7 +122,7 @@ function normalizeEvent(event: EventPayload): EventItem | null {
     created_at: readString(event.created_at),
     updated_at: readString(event.updated_at),
 
-    event_addresses: normalizeAddress(event.event_addresses),
+    event_addresses: normalizeAddresses(event.event_addresses),
     event_organizers: Array.isArray(event.event_organizers)
       ? event.event_organizers
       : [],
@@ -134,7 +133,7 @@ function normalizeEvent(event: EventPayload): EventItem | null {
 export async function fetchEventsFromSupabase(): Promise<EventPayload[]> {
   return getMemoryCachedData<EventPayload[]>(
     `events:${TENANT_ID}`,
-    600,
+    0,
     () => fetchEventsFromSupabaseProxy()
   );
 }
@@ -155,7 +154,7 @@ async function fetchEventsFromSupabaseProxy(
     `&tenant_id=eq.${TENANT_ID}` +
     `&is_active=eq.true` +
     `&status=in.(ongoing,upcoming)` +
-    `&order=display_order.asc,start_at.asc`;
+    `&order=display_order.asc`;
 
   const response = await fetch(url, {
     method: "GET",
@@ -166,7 +165,7 @@ async function fetchEventsFromSupabaseProxy(
       Accept: "application/json",
     },
     next: {
-      revalidate: 300,
+      revalidate: 60,
     },
   });
 
@@ -201,6 +200,7 @@ export async function getEvents(
     .sort(
       (left, right) =>
         left.display_order - right.display_order ||
-        new Date(left.start_at).getTime() - new Date(right.start_at).getTime()
+        new Date(left.event_addresses[0]?.start_at ?? 0).getTime() -
+          new Date(right.event_addresses[0]?.start_at ?? 0).getTime()
     );
 }

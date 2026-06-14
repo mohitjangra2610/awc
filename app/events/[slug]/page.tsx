@@ -32,13 +32,30 @@ function formatEventDate(date: string): string {
   }).format(new Date(date));
 }
 
+function normalizeSlug(s: string): string {
+  try {
+    s = decodeURIComponent(s);
+  } catch {
+    // ignore if already decoded
+  }
+  return s
+    .trim()
+    .toLowerCase()
+    .replace(/[\s\u2000-\u200f\u2028-\u202f\u205f-\u206f\ufeff\u00a0]+/g, "-")
+    .replace(/-+/g, "-");
+}
+
+function matchSlug(dbSlug: string, urlSlug: string): boolean {
+  return normalizeSlug(dbSlug) === normalizeSlug(urlSlug);
+}
+
 export default async function EventDetailPage({
   params,
 }: Readonly<EventDetailPageProps>) {
   const { slug } = await params;
 
   const events = await getEvents({ source: "server" });
-  const event = events.find((item) => item.slug === slug);
+  const event = events.find((item) => matchSlug(item.slug, slug));
 
   if (!event) {
     notFound();
@@ -46,13 +63,7 @@ export default async function EventDetailPage({
 
   const isOnline = event.event_type === "online";
 
-  let locationText = "Location will be updated soon";
-
-  if (isOnline) {
-    locationText = event.online_platform || "Online Event";
-  } else if (event.event_addresses) {
-    locationText = `${event.event_addresses.address_line_1}, ${event.event_addresses.city}, ${event.event_addresses.state}, ${event.event_addresses.country}`;
-  }
+  const primaryAddress = event.event_addresses?.[0] ?? null;
 
   const heroImage =
     event.cover_image_url ||
@@ -63,7 +74,7 @@ export default async function EventDetailPage({
     <main className="w-full bg-white px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[1fr_360px]">
         <section className="space-y-8">
-          <div className="overflow-hidden rounded-3xl border border-[#EAECF0] bg-[#F9FAFB]">
+          <div className="overflow-hidden rounded-3xl border border-border-muted bg-muted">
             <Image
               src={heroImage}
               alt={event.event_name}
@@ -83,67 +94,116 @@ export default async function EventDetailPage({
               {event.event_name}
             </h1>
 
-            <p className="text-lg leading-8 text-[#344054]">
+            <p className="text-lg leading-8 text-text-dim">
               {event.short_description}
             </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Card className="rounded-2xl border-[#EAECF0] shadow-sm">
-              <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-                  <CalendarDays className="h-5 w-5" />
-                </div>
+          {/* Online Event — keep simple single card */}
+          {isOnline ? (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Card className="rounded-2xl border-border-muted shadow-sm">
+                <CardContent className="flex items-start gap-4 p-5">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                    <CalendarDays className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-black">Date & Time</p>
+                    <p className="mt-1 text-sm leading-6 text-text-dim">
+                      {primaryAddress?.start_at
+                        ? formatEventDate(primaryAddress.start_at)
+                        : "Date TBA"}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
 
-                <div>
-                  <p className="text-sm font-semibold text-black">
-                    Date & Time
-                  </p>
-                  <p className="mt-1 text-sm leading-6 text-[#344054]">
-                    {formatEventDate(event.start_at)}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="rounded-2xl border-[#EAECF0] shadow-sm">
-              <CardContent className="flex items-start gap-4 p-5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-                  {isOnline ? (
+              <Card className="rounded-2xl border-border-muted shadow-sm">
+                <CardContent className="flex items-start gap-4 p-5">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                     <Video className="h-5 w-5" />
-                  ) : (
-                    <MapPin className="h-5 w-5" />
-                  )}
-                </div>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-black">Online Platform</p>
+                    <p className="mt-1 text-sm leading-6 text-text-dim">
+                      {event.online_platform || "Online Event"}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          ) : (
+            /* Offline Event — one card per venue in a grid */
+            <div className={`grid gap-4 ${event.event_addresses.length > 1 ? "sm:grid-cols-2" : "sm:grid-cols-2"}`}>
+              {event.event_addresses.length > 0 ? (
+                event.event_addresses.map((addr, index) => (
+                  <Card key={addr.id} className="rounded-2xl border-border-muted shadow-sm">
+                    <CardContent className="flex items-start gap-4 p-5">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                        <MapPin className="h-5 w-5" />
+                      </div>
 
-                <div>
-                  <p className="text-sm font-semibold text-black">
-                    {isOnline ? "Online Platform" : "Location"}
-                  </p>
-                  <p className="mt-1 text-sm leading-6 text-[#344054]">
-                    {locationText}
-                  </p>
+                      <div className="flex-1 space-y-2">
+                        {/* Venue label */}
+                        <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                          {addr.location_label || `Venue ${index + 1}`}
+                        </p>
 
-                  {!isOnline && event.event_addresses?.google_map_location ? (
-                    <a
-                      href={event.event_addresses.google_map_location}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-blue-600"
-                    >
-                      View on map
-                      <ExternalLink className="h-3.5 w-3.5" />
-                    </a>
-                  ) : null}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+                        {/* Date & Time */}
+                        <div className="flex items-start gap-1.5">
+                          <CalendarDays className="mt-0.5 h-4 w-4 shrink-0 text-text-dim" />
+                          <p className="text-sm leading-6 text-text-dim">
+                            {addr.start_at ? formatEventDate(addr.start_at) : "Date TBA"}
+                            {addr.end_at ? ` – ${formatEventDate(addr.end_at)}` : ""}
+                          </p>
+                        </div>
+
+                        {/* Address */}
+                        <div className="flex items-start gap-1.5">
+                          <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-text-dim" />
+                          <p className="text-sm leading-6 text-text-dim">
+                            {addr.address_line_1}, {addr.city}, {addr.state} {addr.zipcode}, {addr.country}
+                          </p>
+                        </div>
+
+                        {/* Map link */}
+                        {addr.google_map_location ? (
+                          <a
+                            href={addr.google_map_location}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1 text-sm font-semibold text-blue-600"
+                          >
+                            View on map
+                            <ExternalLink className="h-3.5 w-3.5" />
+                          </a>
+                        ) : null}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <Card className="rounded-2xl border-border-muted shadow-sm">
+                  <CardContent className="flex items-start gap-4 p-5">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                      <MapPin className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-black">Location</p>
+                      <p className="mt-1 text-sm leading-6 text-text-dim">
+                        Location will be updated soon
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          )}
 
           <section className="space-y-4">
             <h2 className="text-2xl font-bold text-black">About this event</h2>
 
-            <p className="whitespace-pre-line text-base leading-8 text-[#344054]">
+            <p className="whitespace-pre-line text-base leading-8 text-text-dim">
               {event.complete_description}
             </p>
           </section>
@@ -156,10 +216,10 @@ export default async function EventDetailPage({
                 {event.event_organizers.map((organizer) => (
                   <Card
                     key={organizer.id}
-                    className="rounded-2xl border-[#EAECF0] shadow-sm"
+                    className="rounded-2xl border-border-muted shadow-sm"
                   >
                     <CardContent className="flex gap-4 p-5">
-                      <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#F2F4F7]">
+                      <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted">
                         {organizer.image_url ? (
                           <Image
                             src={organizer.image_url}
@@ -168,7 +228,7 @@ export default async function EventDetailPage({
                             className="object-cover"
                           />
                         ) : (
-                          <UserRound className="h-6 w-6 text-[#667085]" />
+                          <UserRound className="h-6 w-6 text-muted-foreground" />
                         )}
                       </div>
 
@@ -184,7 +244,7 @@ export default async function EventDetailPage({
                         ) : null}
 
                         {organizer.about ? (
-                          <p className="mt-2 text-sm leading-6 text-[#344054]">
+                          <p className="mt-2 text-sm leading-6 text-text-dim">
                             {organizer.about}
                           </p>
                         ) : null}
@@ -204,7 +264,7 @@ export default async function EventDetailPage({
                 {event.event_gallery.map((image) => (
                   <div
                     key={image.id}
-                    className="overflow-hidden rounded-2xl border border-[#EAECF0] bg-[#F9FAFB]"
+                    className="overflow-hidden rounded-2xl border border-border-muted bg-muted"
                   >
                     <Image
                       src={image.image_url}
@@ -221,7 +281,7 @@ export default async function EventDetailPage({
         </section>
 
         <aside className="space-y-6 lg:sticky lg:top-24 lg:h-fit">
-          <Card className="rounded-2xl border-[#EAECF0] shadow-sm">
+          <Card className="rounded-2xl border-border-muted shadow-sm">
             <CardContent className="space-y-4 p-5">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
                 Registration
@@ -231,7 +291,7 @@ export default async function EventDetailPage({
                 Reserve your spot
               </h2>
 
-              <p className="text-sm leading-6 text-[#344054]">
+              <p className="text-sm leading-6 text-text-dim">
                 Register for this event using the official registration link.
               </p>
 
@@ -251,7 +311,7 @@ export default async function EventDetailPage({
             </CardContent>
           </Card>
 
-          <Card className="rounded-2xl border-[#EAECF0] shadow-sm">
+          <Card className="rounded-2xl border-border-muted shadow-sm">
             <CardContent className="p-5">
               <h2 className="text-lg font-bold text-black">Other Events</h2>
 
@@ -267,7 +327,7 @@ export default async function EventDetailPage({
                       className={`w-full justify-between rounded-xl ${
                         isActive
                           ? "bg-blue-600 text-white hover:bg-blue-700"
-                          : "text-[#344054] hover:bg-[#F2F4F7]"
+                          : "text-text-dim hover:bg-muted"
                       }`}
                     >
                       <Link href={`/events/${item.slug}`}>

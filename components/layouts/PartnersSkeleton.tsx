@@ -12,7 +12,7 @@ export function PartnersSkeleton() {
         {Array.from({ length: 4 }).map((_, index) => (
           <div
             key={index}
-            className="w-[320px] shrink-0 rounded-2xl border border-[#EAECF0] bg-white p-5 shadow-sm"
+            className="w-[320px] shrink-0 rounded-2xl border border-border-muted bg-white p-5 shadow-sm"
           >
             <div className="flex gap-4">
               <Skeleton className="h-14 w-14 rounded-xl" />

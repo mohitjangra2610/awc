@@ -63,41 +63,56 @@ export default function LeadForm() {
   const [otpToken, setOtpToken] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [fetchError, setFetchError] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  // Services fetch karo
   useEffect(() => {
+    let cancelled = false;
     async function fetchServices() {
-      const data = await getMemoryCachedData(
-        `quote_services:${process.env.NEXT_PUBLIC_TENANT_ID}`,
-        600, // 10 minutes
-        async () => {
-          const res = await fetch("/api/get-services");
-          return res.json();
-        },
-      );
-      setServices(data);
+      try {
+        const data = await getMemoryCachedData(
+          `quote_services:${process.env.NEXT_PUBLIC_TENANT_ID}`,
+          600,
+          async () => {
+            const res = await fetch("/api/get-services");
+            if (!res.ok) throw new Error("Failed to load services");
+            return res.json();
+          },
+        );
+        if (!cancelled) setServices(data);
+      } catch {
+        if (!cancelled) setFetchError("Unable to load services. Please try again later.");
+      }
     }
     fetchServices();
+    return () => { cancelled = true; };
   }, []);
 
   useEffect(() => {
     if (!selectedService) return;
+    const svc = selectedService;
+    let cancelled = false;
     async function fetchFields() {
-      const data = await getMemoryCachedData(
-        `service_fields:${selectedService?.id}`,
-        600, // 10 minutes
-        async () => {
-          const res = await fetch(
-            `/api/get-service-fields?service_id=${selectedService?.id}`,
-          );
-          return res.json();
-        },
-      );
-      setServiceFields(data);
-      setServiceData({});
+      try {
+        const data = await getMemoryCachedData(
+          `service_fields:${svc!.id}`,
+          600,
+          async () => {
+            const res = await fetch(
+              `/api/get-service-fields?service_id=${svc!.id}`,
+            );
+            if (!res.ok) throw new Error("Failed to load service fields");
+            return res.json();
+          },
+        );
+        if (!cancelled) setServiceFields(data);
+        setServiceData({});
+      } catch {
+        if (!cancelled) setFetchError("Unable to load service details. Please try again.");
+      }
     }
     fetchFields();
+    return () => { cancelled = true; };
   }, [selectedService]);
 
   async function handleSubmitClick() {
@@ -172,6 +187,12 @@ export default function LeadForm() {
 
   return (
     <div className="w-full max-w-2xl mx-auto px-4 py-12">
+      {fetchError && (
+        <div className="mb-6 rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-600">
+          {fetchError}
+        </div>
+      )}
+
       {/* Progress Bar */}
       <div className="flex items-center gap-2 mb-10">
         {[1, 2, 3].map((s) => (
@@ -179,7 +200,7 @@ export default function LeadForm() {
             <div
               className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-semibold border-2 transition-all
               ${step === s ? "bg-blue-600 text-white border-blue-600" : ""}
-              ${step > s ? "bg-[#c9a84c] text-white border-[#c9a84c]" : ""}
+              ${step > s ? "bg-gold text-white border-gold" : ""}
               ${step < s ? "bg-white text-gray-400 border-gray-200" : ""}
             `}
             >
@@ -200,14 +221,14 @@ export default function LeadForm() {
             </div>
             <span
               className={`text-xs font-medium hidden sm:block
-              ${step === s ? "text-[#0a1628]" : "text-gray-400"}
+              ${step === s ? "text-ink" : "text-gray-400"}
             `}
             >
               {getStepLabel(s)}
             </span>
             {s < 3 && (
               <div
-                className={`flex-1 h-0.5 ${step > s ? "bg-[#c9a84c]" : "bg-gray-200"}`}
+                className={`flex-1 h-0.5 ${step > s ? "bg-gold" : "bg-gray-200"}`}
               />
             )}
           </div>

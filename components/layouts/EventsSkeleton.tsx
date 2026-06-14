@@ -21,7 +21,7 @@ export function EventsSkeleton() {
           {Array.from({ length: 4 }).map((_, index) => (
             <div
               key={`skeleton-${index}`}
-              className="inline-flex h-full w-full flex-col items-start justify-start gap-6 rounded-[20px] bg-[#FCFCFD] p-2 shadow-[0px_5px_8px_-4px_rgba(16,24,40,0.03),0px_8px_24px_-4px_rgba(16,24,40,0.08)] md:flex-row md:items-center"
+              className="inline-flex h-full w-full flex-col items-start justify-start gap-6 rounded-[20px] bg-white p-2 shadow-[0px_5px_8px_-4px_rgba(16,24,40,0.03),0px_8px_24px_-4px_rgba(16,24,40,0.08)] md:flex-row md:items-center"
             >
               <Skeleton className="h-55 w-full flex-1 rounded-xl sm:h-63.25" />
 

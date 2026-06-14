@@ -29,11 +29,21 @@ function getEventLocation(event: EventItem): string {
     return event.online_platform || "Online Event";
   }
 
-  if (event.event_addresses) {
-    return `${event.event_addresses.address_line_1} ${event.event_addresses.city}, ${event.event_addresses.state} ${event.event_addresses.zipcode} ${event.event_addresses.country}`;
+  const addresses = event.event_addresses;
+
+  if (addresses.length === 0) {
+    return "Location coming soon";
   }
 
-  return "Location coming soon";
+  const primary = addresses[0];
+  const remaining = addresses.length - 1;
+  const base = `${primary.address_line_1}, ${primary.city}, ${primary.state} ${primary.zipcode} ${primary.country}`;
+
+  if (remaining > 0) {
+    return `${primary.city}, ${primary.state} + ${remaining} more`;
+  }
+
+  return base;
 }
 
 function getEventImage(event: EventItem): string {
@@ -61,8 +71,8 @@ export function EventsPageList({
       <div className="mx-auto w-full max-w-7xl space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-[#101828]">Events</h1>
-            <p className="mt-2 text-sm text-[#475467]">
+            <h1 className="text-3xl font-bold text-foreground">Events</h1>
+            <p className="mt-2 text-sm text-muted-foreground">
               Browse upcoming and ongoing events.
             </p>
           </div>
@@ -76,7 +86,7 @@ export function EventsPageList({
                 className={`rounded-full px-4 py-2 text-sm font-medium capitalize transition ${
                   selectedFilter === filter
                     ? "bg-blue-700 text-white"
-                    : "bg-[#F2F4F7] text-[#344054] hover:bg-[#E4E7EC]"
+                    : "bg-muted text-text-dim hover:bg-muted"
                 }`}
               >
                 {filter}
@@ -93,9 +103,9 @@ export function EventsPageList({
               <Link
                 key={event.id}
                 href={`/events/${event.slug}`}
-                className="grid gap-4 rounded-xl border border-[#D0D5DD] bg-white p-4 transition-all duration-300 hover:border-blue-200 hover:shadow-md sm:grid-cols-[150px_180px_1fr_auto] sm:items-center sm:p-5"
+                className="grid gap-4 rounded-xl border border-border bg-white p-4 transition-all duration-300 hover:border-blue-200 hover:shadow-md sm:grid-cols-[150px_180px_1fr_auto] sm:items-center sm:p-5"
               >
-                <div className="relative h-[120px] w-full overflow-hidden rounded-lg bg-[#F2F4F7] sm:h-[90px] sm:w-[150px]">
+                <div className="relative h-[120px] w-full overflow-hidden rounded-lg bg-muted sm:h-[90px] sm:w-[150px]">
                   <Image
                     src={getEventImage(event)}
                     alt={event.event_name}
@@ -104,23 +114,25 @@ export function EventsPageList({
                   />
                 </div>
 
-                <div className="flex items-start gap-2 text-[#101828] sm:border-r sm:border-[#D0D5DD] sm:pr-5">
-                  <CalendarDays className="mt-1 h-4 w-4 shrink-0 text-[#667085] sm:hidden" />
+                <div className="flex items-start gap-2 text-foreground sm:border-r sm:border-border sm:pr-5">
+                  <CalendarDays className="mt-1 h-4 w-4 shrink-0 text-muted-foreground sm:hidden" />
                   <p className="text-sm font-medium leading-6 sm:text-base">
-                    {formatEventDate(event.start_at)}
+                    {event.event_addresses?.[0]?.start_at
+                      ? formatEventDate(event.event_addresses[0].start_at)
+                      : "Date TBA"}
                   </p>
                 </div>
 
                 <div className="space-y-2">
-                  <h2 className="text-base font-bold text-[#101828]">
+                  <h2 className="text-base font-bold text-foreground">
                     {event.event_name}
                   </h2>
 
-                  <p className="line-clamp-1 text-sm font-semibold text-[#344054]">
+                  <p className="line-clamp-1 text-sm font-semibold text-text-dim">
                     {event.short_description}
                   </p>
 
-                  <div className="flex items-start gap-2 text-sm font-medium text-[#475467]">
+                  <div className="flex items-start gap-2 text-sm font-medium text-muted-foreground">
                     {isOnline ? (
                       <Video className="mt-0.5 h-4 w-4 shrink-0" />
                     ) : (

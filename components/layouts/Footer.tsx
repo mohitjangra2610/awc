@@ -57,7 +57,7 @@ export function Footer() {
           <p>© 2026 American Wealth. All Rights Reserved.</p>
 
           <div className="flex gap-5">
-            <Link href="/privacy-policy" className="hover:text-white">
+            <Link href="/privacypolicy" className="hover:text-white">
               Privacy Policy
             </Link>
 

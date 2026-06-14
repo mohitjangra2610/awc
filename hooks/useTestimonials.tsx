@@ -18,6 +18,7 @@ export function useTestimonials(): UseTestimonialsReturn {
 
   useEffect(() => {
     const controller = new AbortController();
+    let mounted = true;
 
     async function loadTestimonials() {
       try {
@@ -29,19 +30,26 @@ export function useTestimonials(): UseTestimonialsReturn {
           source: 'client',
         });
 
-        setTestimonials(data);
+        if (mounted) {
+          setTestimonials(data);
+        }
       } catch (err) {
-        if ((err as Error).name !== 'AbortError') {
+        if (mounted && (err as Error).name !== 'AbortError') {
           setError('Failed to load testimonials');
         }
       } finally {
-        setLoading(false);
+        if (mounted) {
+          setLoading(false);
+        }
       }
     }
 
     loadTestimonials();
 
-    return () => controller.abort();
+    return () => {
+      mounted = false;
+      controller.abort();
+    };
   }, []);
 
   return {

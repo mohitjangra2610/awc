@@ -10,10 +10,12 @@ interface GetTestimonialsOptions {
   source?: "auto" | "client" | "server";
 }
 
-const TENANT_ID = process.env.NEXT_PUBLIC_TENANT_ID;
-
-if (!TENANT_ID) {
-  throw new Error("Missing NEXT_PUBLIC_TENANT_ID environment variable");
+function getTenantId(): string {
+  const id = process.env.NEXT_PUBLIC_TENANT_ID;
+  if (!id) {
+    throw new Error("Missing NEXT_PUBLIC_TENANT_ID environment variable");
+  }
+  return id;
 }
 
 function normalizeTestimonial(
@@ -33,7 +35,7 @@ function normalizeTestimonial(
     tenant_id:
       typeof testimonial.tenant_id === "string"
         ? testimonial.tenant_id
-        : TENANT_ID!,
+        : getTenantId(),
     message: testimonial.message,
     image_url:
       typeof testimonial.image_url === "string" ? testimonial.image_url : null,
@@ -67,7 +69,7 @@ async function fetchTestimonialsFromSupabase(
   }
 
   const response = await fetch(
-    `${supabaseUrl}/rest/v1/testimonials?tenant_id=eq.${TENANT_ID}&is_active=eq.true&order=display_order.asc`,
+    `${supabaseUrl}/rest/v1/testimonials?tenant_id=eq.${getTenantId()}&is_active=eq.true&order=display_order.asc`,
     {
       signal,
       headers: {
@@ -91,8 +93,8 @@ async function fetchTestimonialsFromSupabase(
 }
 export async function getTestimonials(options: GetTestimonialsOptions = {}): Promise<Testimonial[]> {
   return getMemoryCachedData<Testimonial[]>(
-    `stats:${TENANT_ID}`,
-    600, // 10 minutes
+    `testimonials:${getTenantId()}`,
+    600,
     () => getTestimonialsProxy(options)
   );
 }

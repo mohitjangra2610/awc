@@ -7,7 +7,7 @@ export function ServicesSkeleton() {
         {Array.from({ length: 6 }).map((_, index) => (
           <div
             key={index}
-            className="flex items-start gap-6 rounded-xl border border-[#EAECF0] bg-white p-6"
+            className="flex items-start gap-6 rounded-xl border border-border-muted bg-white p-6"
           >
             <Skeleton className="h-20 w-20 shrink-0 rounded-lg" />
 

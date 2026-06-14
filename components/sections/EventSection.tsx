@@ -29,11 +29,21 @@ function getEventLocation(event: EventItem): string {
     return event.online_platform || "Online Platform";
   }
 
-  if (event.event_addresses) {
-    return `${event.event_addresses.city}, ${event.event_addresses.state}`;
+  const addresses = event.event_addresses;
+
+  if (addresses.length === 0) {
+    return "Location Coming Soon";
   }
 
-  return "Location Coming Soon";
+  const primary = addresses[0];
+  const remaining = addresses.length - 1;
+  const base = `${primary.city}, ${primary.state}`;
+
+  if (remaining > 0) {
+    return `${base} + ${remaining} more`;
+  }
+
+  return base;
 }
 function getStatusLabel(status: EventItem["status"]): string {
   if (status === "ongoing") {
@@ -102,12 +112,15 @@ export function EventsClientSection({
           </ToggleGroup>
         </div>
 
-        {hasEvents ? (
+        {hasEvents && filteredEvents.length > 0 ? (
           <div className="grid gap-6 lg:grid-cols-2">
             {filteredEvents.map((event: EventItem) => {
               const isOnline = event.event_type === "online";
               const imageUrl = getEventImage(event);
-              const formattedDate = formatEventDate(event.start_at);
+              const address = event.event_addresses?.[0];
+              const formattedDate = address?.start_at
+                ? formatEventDate(address.start_at)
+                : "Date TBA";
               const locationText = getEventLocation(event);
 
               const statusLabel = getStatusLabel(event.status);
@@ -190,9 +203,15 @@ export function EventsClientSection({
               );
             })}
           </div>
+        ) : hasEvents ? (
+          <div className="rounded-[20px] border border-dashed border-border bg-white p-8 text-center">
+            <p className="font-lato text-base font-medium text-text-dim">
+              No events found for this filter.
+            </p>
+          </div>
         ) : (
-          <div className="rounded-[20px] border border-dashed border-[#D0D5DD] bg-[#FCFCFD] p-8 text-center">
-            <p className="font-lato text-base font-medium text-[#344054]">
+          <div className="rounded-[20px] border border-dashed border-border bg-white p-8 text-center">
+            <p className="font-lato text-base font-medium text-text-dim">
               No active events available.
             </p>
           </div>

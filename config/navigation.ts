@@ -10,6 +10,10 @@ export const navigationLinks = [
     href: "/partners",
   },
   {
+    label: "Entrepreneurs",
+    href: "/entrepreneurs",
+  },
+  {
     label: "Services",
     href: "/services",
   },
@@ -37,6 +41,11 @@ export const mobileNavigationLinks = [
     icon: Users,
   },
   {
+    label: "Entrepreneurs",
+    href: "/entrepreneurs",
+    icon: User,
+  },
+  {
     label: "Services",
     href: "/services",
     icon: Lightbulb,
@@ -46,6 +55,8 @@ export const mobileNavigationLinks = [
     href: "/events",
     icon: Calendar,
   },
+
+
 
   {
     label: "About",

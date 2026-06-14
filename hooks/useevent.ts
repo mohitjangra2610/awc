@@ -39,7 +39,8 @@ function normalizeEvents(events: EventItem[]): EventItem[] {
     .sort(
       (left, right) =>
         left.display_order - right.display_order ||
-        getEventTimestamp(left.start_at) - getEventTimestamp(right.start_at)
+        getEventTimestamp(left.event_addresses[0]?.start_at ?? "") -
+          getEventTimestamp(right.event_addresses[0]?.start_at ?? "")
     );
 }
 

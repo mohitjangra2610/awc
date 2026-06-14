@@ -34,9 +34,9 @@ export default async function PartnerDetailPage({
       <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[1fr_360px]">
         {/* Left Content */}
         <section className="space-y-8">
-          <div className="rounded-3xl border border-[#EAECF0] bg-[#F9FAFB] p-8">
+          <div className="rounded-3xl border border-border-muted bg-muted p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-              <div className="relative flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#EAECF0] bg-white">
+              <div className="relative flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-border-muted bg-white">
                 <Image
                   src={partner.logo_url}
                   alt={partner.company_name}
@@ -56,7 +56,7 @@ export default async function PartnerDetailPage({
                 </h1>
 
                 {partner.heading_text ? (
-                  <p className="max-w-3xl text-lg leading-8 text-[#344054]">
+                  <p className="max-w-3xl text-lg leading-8 text-text-dim">
                     {partner.heading_text}
                   </p>
                 ) : null}
@@ -67,7 +67,7 @@ export default async function PartnerDetailPage({
           <section className="space-y-4">
             <h2 className="text-2xl font-bold text-black">Overview</h2>
 
-            <p className="text-base leading-8 text-[#344054]">
+            <p className="text-base leading-8 text-text-dim">
               {partner.short_description}
             </p>
           </section>
@@ -78,7 +78,7 @@ export default async function PartnerDetailPage({
                 About the Company
               </h2>
 
-              <p className="whitespace-pre-line text-base leading-8 text-[#344054]">
+              <p className="whitespace-pre-line text-base leading-8 text-text-dim">
                 {partner.about_the_company}
               </p>
             </section>
@@ -90,7 +90,7 @@ export default async function PartnerDetailPage({
                 Partnership Story
               </h2>
 
-              <p className="whitespace-pre-line text-base leading-8 text-[#344054]">
+              <p className="whitespace-pre-line text-base leading-8 text-text-dim">
                 {partner.content}
               </p>
             </section>
@@ -101,7 +101,7 @@ export default async function PartnerDetailPage({
               <h2 className="text-2xl font-bold text-black">Result</h2>
 
               <div className="rounded-2xl border border-blue-100 bg-blue-50/50 p-6">
-                <p className="whitespace-pre-line text-base leading-8 text-[#344054]">
+                <p className="whitespace-pre-line text-base leading-8 text-text-dim">
                   {partner.result}
                 </p>
               </div>
@@ -109,7 +109,7 @@ export default async function PartnerDetailPage({
           ) : null}
 
           {partner.review ? (
-            <section className="rounded-3xl border border-[#EAECF0] bg-[#FCFCFD] p-6">
+            <section className="rounded-3xl border border-border-muted bg-white p-6">
               <Quote className="h-8 w-8 text-blue-600" />
 
               <p className="mt-4 text-xl font-medium leading-9 text-black">
@@ -127,7 +127,7 @@ export default async function PartnerDetailPage({
 
         {/* Right Sidebar */}
         <aside className="space-y-6 lg:sticky lg:top-24 lg:h-fit">
-          <Card className="rounded-2xl border-[#EAECF0] shadow-sm">
+          <Card className="rounded-2xl border-border-muted shadow-sm">
             <CardContent className="p-5">
               <h2 className="text-lg font-bold text-black">All Partners</h2>
 
@@ -143,7 +143,7 @@ export default async function PartnerDetailPage({
                       className={`w-full justify-between rounded-xl ${
                         isActive
                           ? "bg-blue-600 text-white hover:bg-blue-700"
-                          : "text-[#344054] hover:bg-[#F2F4F7]"
+                          : "text-text-dim hover:bg-muted"
                       }`}
                     >
                       <Link href={`/partners/${item.slug}`}>
@@ -157,13 +157,13 @@ export default async function PartnerDetailPage({
             </CardContent>
           </Card>
 
-          <Card className="rounded-2xl border-[#EAECF0] shadow-sm">
+          <Card className="rounded-2xl border-border-muted shadow-sm">
             <CardContent className="space-y-4 p-5">
               <h2 className="text-lg font-bold text-black">
                 Visit Partner Website
               </h2>
 
-              <p className="text-sm leading-6 text-[#344054]">
+              <p className="text-sm leading-6 text-text-dim">
                 Learn more about {partner.company_name} from their official
                 website.
               </p>

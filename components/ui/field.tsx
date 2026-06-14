@@ -19,6 +19,7 @@ function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
     />
   )
 }
+FieldSet.displayName = "FieldSet"
 
 function FieldLegend({
   className,
@@ -37,6 +38,7 @@ function FieldLegend({
     />
   )
 }
+FieldLegend.displayName = "FieldLegend"
 
 function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -50,6 +52,7 @@ function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
     />
   )
 }
+FieldGroup.displayName = "FieldGroup"
 
 const fieldVariants = cva(
   "group/field flex w-full gap-2 data-[invalid=true]:text-destructive",
@@ -84,6 +87,7 @@ function Field({
     />
   )
 }
+Field.displayName = "Field"
 
 function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -97,6 +101,7 @@ function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
     />
   )
 }
+FieldContent.displayName = "FieldContent"
 
 function FieldLabel({
   className,
@@ -114,6 +119,7 @@ function FieldLabel({
     />
   )
 }
+FieldLabel.displayName = "FieldLabel"
 
 function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -127,6 +133,7 @@ function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
     />
   )
 }
+FieldTitle.displayName = "FieldTitle"
 
 function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
   return (
@@ -142,6 +149,7 @@ function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
     />
   )
 }
+FieldDescription.displayName = "FieldDescription"
 
 function FieldSeparator({
   children,
@@ -172,6 +180,7 @@ function FieldSeparator({
     </div>
   )
 }
+FieldSeparator.displayName = "FieldSeparator"
 
 function FieldError({
   className,
@@ -223,6 +232,7 @@ function FieldError({
     </div>
   )
 }
+FieldError.displayName = "FieldError"
 
 export {
   Field,
