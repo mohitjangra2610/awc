@@ -100,9 +100,17 @@ const audienceItems = [
 ];
 
 const executionCards = [
-  { icon: Award, title: "Serious", desc: "They treat wealth strategy like business strategy." },
+  {
+    icon: Award,
+    title: "Serious",
+    desc: "They treat wealth strategy like business strategy.",
+  },
   { icon: Target, title: "Decisive", desc: "They act when timing matters." },
-  { icon: ArrowUpRight, title: "Action-Oriented", desc: "They move from plan to execution." },
+  {
+    icon: ArrowUpRight,
+    title: "Action-Oriented",
+    desc: "They move from plan to execution.",
+  },
 ];
 
 const costItems = [
@@ -115,14 +123,30 @@ const costItems = [
 ];
 
 const strategyBenefits = [
-  "Protection", "Liquidity", "Certainty",
-  "Tax Efficiency", "Business Continuity", "Family Wealth",
+  "Protection",
+  "Liquidity",
+  "Certainty",
+  "Tax Efficiency",
+  "Business Continuity",
+  "Family Wealth",
 ];
 
 const processSteps = [
-  { step: 1, title: "Discovery", desc: "We learn your business, family, and goals." },
-  { step: 2, title: "Review", desc: "Assess your current strategies and objectives." },
-  { step: 3, title: "Evaluation", desc: "Match tailored solutions to your needs." },
+  {
+    step: 1,
+    title: "Discovery",
+    desc: "We learn your business, family, and goals.",
+  },
+  {
+    step: 2,
+    title: "Review",
+    desc: "Assess your current strategies and objectives.",
+  },
+  {
+    step: 3,
+    title: "Evaluation",
+    desc: "Match tailored solutions to your needs.",
+  },
   { step: 4, title: "Roadmap", desc: "Actionable plan with clear milestones." },
 ];
 
@@ -130,7 +154,6 @@ function HeroSection() {
   return (
     <section className="w-full px-4 sm:px-6 lg:px-8 py-10 lg:py-20 bg-white">
       <Container>
-
         {/* DESKTOP */}
         <div
           className="hidden lg:flex relative w-full rounded-2xl overflow-hidden min-h-[420px] items-center shadow-xl"
@@ -146,9 +169,8 @@ function HeroSection() {
             </h1>
 
             <p className="text-base text-white/90 leading-relaxed max-w-sm">
-              Growth opens doors — and creates real risk.
-              We help protect what you&apos;ve built and position
-              your wealth for what&apos;s next.
+              Growth opens doors — and creates real risk. We help protect what
+              you&apos;ve built and position your wealth for what&apos;s next.
             </p>
 
             <div className="flex flex-row gap-3 pt-1">
@@ -157,9 +179,7 @@ function HeroSection() {
                 size="lg"
                 className="bg-navy text-white hover:bg-primary-hover px-6 py-2.5 text-sm rounded-lg transition-all duration-300 whitespace-nowrap"
               >
-                <Link href="/contact">
-                  Schedule a Strategy Session
-                </Link>
+                <Link href="/contact">Schedule a Strategy Session</Link>
               </Button>
               <Button
                 asChild
@@ -198,9 +218,8 @@ function HeroSection() {
             </h1>
 
             <p className="text-sm sm:text-base text-white/90 leading-relaxed">
-              Growth opens doors — and creates real risk.
-              We help protect what you&apos;ve built and position
-              your wealth for what&apos;s next.
+              Growth opens doors — and creates real risk. We help protect what
+              you&apos;ve built and position your wealth for what&apos;s next.
             </p>
 
             <div className="flex flex-col gap-2 pb-2 w-full">
@@ -209,9 +228,7 @@ function HeroSection() {
                 size="default"
                 className="bg-navy text-white hover:bg-primary-hover px-4 py-2 text-xs rounded-lg transition-all duration-300 w-full"
               >
-                <Link href="/contact">
-                  Schedule a Strategy Session
-                </Link>
+                <Link href="/contact">Schedule a Strategy Session</Link>
               </Button>
               <Button
                 asChild
@@ -224,7 +241,7 @@ function HeroSection() {
             </div>
           </div>
 
-          <div className="relative w-full height: 280px; sm: height: 340px;">
+          <div className="relative w-full h-70 sm:h-85">
             <Image
               src="/ent_banner.png"
               alt="Business owners shaking hands"
@@ -234,7 +251,6 @@ function HeroSection() {
             />
           </div>
         </div>
-
       </Container>
     </section>
   );
@@ -247,7 +263,10 @@ function TrustBar() {
           {trustBarItems.map((item) => {
             const Icon = item.icon;
             return (
-              <div key={item.label} className="flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground">
+              <div
+                key={item.label}
+                className="flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground"
+              >
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white ring-1 ring-foreground/5 flex items-center justify-center">
                   <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold-accent" />
                 </div>
@@ -279,7 +298,8 @@ function QuestionCardsSection() {
               <span className="text-gold-accent">Few protect it.</span>
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-prose">
-              The most successful owners ask hard questions before circumstances force them to.
+              The most successful owners ask hard questions before circumstances
+              force them to.
             </p>
           </div>
 
@@ -293,7 +313,9 @@ function QuestionCardsSection() {
                   <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-navy text-white flex items-center justify-center text-xs font-semibold">
                     {i + 1}
                   </span>
-                  <p className="text-sm sm:text-base text-muted-foreground font-medium leading-relaxed">{q}</p>
+                  <p className="text-sm sm:text-base text-muted-foreground font-medium leading-relaxed">
+                    {q}
+                  </p>
                 </div>
               </div>
             ))}
@@ -306,7 +328,10 @@ function QuestionCardsSection() {
 
 function FiveConversationsSection() {
   return (
-    <section id="strategies" className="py-16 lg:py-24 bg-accent/50 px-4 sm:px-6 lg:px-8">
+    <section
+      id="strategies"
+      className="py-16 lg:py-24 bg-accent/50 px-4 sm:px-6 lg:px-8"
+    >
       <Container>
         <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
           <Badge
@@ -333,12 +358,19 @@ function FiveConversationsSection() {
                   <Icon className="w-4 h-4 text-white" />
                 </div>
 
-                <h3 className="text-sm font-semibold text-navy mb-2">{card.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed mb-4 flex-1">{card.desc}</p>
+                <h3 className="text-sm font-semibold text-navy mb-2">
+                  {card.title}
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed mb-4 flex-1">
+                  {card.desc}
+                </p>
 
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {card.tags.map((t) => (
-                    <span key={t} className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-md">
+                    <span
+                      key={t}
+                      className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-md"
+                    >
                       {t}
                     </span>
                   ))}
@@ -362,9 +394,9 @@ function MillionDollarSection() {
     <section className="py-16 lg:py-24 bg-navy text-white overflow-hidden px-4 sm:px-6 lg:px-8">
       <Container>
         <div className="max-w-4xl mx-auto">
-              <Badge
-                variant="secondary"
-                className="h-auto rounded-lg border-0 px-4 py-1.5 font-semibold bg-gold-accent/80 text-muted-foreground uppercase tracking-[0.15em] mb-5"
+          <Badge
+            variant="secondary"
+            className="h-auto rounded-lg border-0 px-4 py-1.5 font-semibold bg-gold-accent/80 text-muted-foreground uppercase tracking-[0.15em] mb-5"
           >
             What If
           </Badge>
@@ -375,10 +407,22 @@ function MillionDollarSection() {
 
           <div className="space-y-4">
             {[
-              ["Would your strategy protect that wealth?", "Growth creates exposure. Without structure, more revenue means more risk."],
-              ["Are you structured to minimize taxes?", "Tax efficiency should be built in, not bolted on."],
-              ["Can your key people share in that success?", "Align incentives with performance for sustainable growth."],
-              ["Is your family prepared for what comes next?", "Plan for succession and continuity across generations."],
+              [
+                "Would your strategy protect that wealth?",
+                "Growth creates exposure. Without structure, more revenue means more risk.",
+              ],
+              [
+                "Are you structured to minimize taxes?",
+                "Tax efficiency should be built in, not bolted on.",
+              ],
+              [
+                "Can your key people share in that success?",
+                "Align incentives with performance for sustainable growth.",
+              ],
+              [
+                "Is your family prepared for what comes next?",
+                "Plan for succession and continuity across generations.",
+              ],
             ].map(([title, desc], i) => (
               <div
                 key={i}
@@ -388,8 +432,12 @@ function MillionDollarSection() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h3 className="text-base sm:text-xl font-semibold mb-1">{title}</h3>
-                  <p className="text-xs sm:text-sm text-white/50 leading-relaxed">{desc}</p>
+                  <h3 className="text-base sm:text-xl font-semibold mb-1">
+                    {title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-white/50 leading-relaxed">
+                    {desc}
+                  </p>
                 </div>
               </div>
             ))}
@@ -427,7 +475,9 @@ function WhoWeWorkWithSection() {
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-navy/5 flex items-center justify-center mx-auto mb-3 transition-colors duration-300 group-hover:bg-navy/10">
                   <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-navy transition-colors duration-300 group-hover:text-gold-accent" />
                 </div>
-                <h3 className="text-xs sm:text-sm font-semibold text-navy leading-snug">{item.label}</h3>
+                <h3 className="text-xs sm:text-sm font-semibold text-navy leading-snug">
+                  {item.label}
+                </h3>
               </div>
             );
           })}
@@ -455,7 +505,8 @@ function ExecutionSection() {
               <span className="text-gold-accent">Not endless research.</span>
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-prose">
-              Our clients value a partner who acts with the same urgency they do.
+              Our clients value a partner who acts with the same urgency they
+              do.
             </p>
           </div>
 
@@ -463,13 +514,20 @@ function ExecutionSection() {
             {executionCards.map((card) => {
               const Icon = card.icon;
               return (
-                <div key={card.title} className="group flex items-start gap-4 p-5 sm:p-6 rounded-xl border border-border bg-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-gold-accent/20">
+                <div
+                  key={card.title}
+                  className="group flex items-start gap-4 p-5 sm:p-6 rounded-xl border border-border bg-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-gold-accent/20"
+                >
                   <div className="w-10 h-10 rounded-lg bg-navy flex items-center justify-center flex-shrink-0 transition-colors duration-300 group-hover:bg-gold-accent">
                     <Icon className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-navy mb-0.5">{card.title}</h3>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
+                    <h3 className="text-sm font-semibold text-navy mb-0.5">
+                      {card.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                      {card.desc}
+                    </p>
                   </div>
                 </div>
               );
@@ -512,7 +570,9 @@ function CostOfWaitingSection() {
                   <div className="w-8 h-8 rounded-lg bg-warning-bg flex items-center justify-center flex-shrink-0">
                     <Icon className="w-3.5 h-3.5 text-warning" />
                   </div>
-                  <span className="text-xs sm:text-sm text-muted-foreground font-medium leading-snug">{item.text}</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground font-medium leading-snug">
+                    {item.text}
+                  </span>
                 </div>
               );
             })}
@@ -543,28 +603,40 @@ function StrategySessionSection() {
           <div className="rounded-2xl border border-border bg-white p-6 sm:p-10 shadow-sm">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-10">
               <div>
-                <h3 className="text-sm font-semibold text-navy mb-4">What You Gain</h3>
+                <h3 className="text-sm font-semibold text-navy mb-4">
+                  What You Gain
+                </h3>
                 <div className="grid grid-cols-2 gap-2 sm:gap-3">
                   {strategyBenefits.map((benefit) => (
-                    <div key={benefit} className="flex items-center gap-2 p-2.5 sm:p-3 rounded-lg bg-accent/80">
+                    <div
+                      key={benefit}
+                      className="flex items-center gap-2 p-2.5 sm:p-3 rounded-lg bg-accent/80"
+                    >
                       <Check className="w-3 h-3 text-gold-accent flex-shrink-0" />
-                      <span className="text-xs font-medium text-muted-foreground">{benefit}</span>
+                      <span className="text-xs font-medium text-muted-foreground">
+                        {benefit}
+                      </span>
                     </div>
                   ))}
                 </div>
 
                 <div className="mt-6">
-                  <h3 className="text-sm font-semibold text-navy mb-3">Ideal For</h3>
+                  <h3 className="text-sm font-semibold text-navy mb-3">
+                    Ideal For
+                  </h3>
                   <div className="rounded-xl border border-gold-accent/20 bg-gold-accent/[0.02] p-4 sm:p-5">
                     <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                      Business owners ready to evaluate solutions in the next <strong className="text-navy">30–60 days</strong>.
+                      Business owners ready to evaluate solutions in the next{" "}
+                      <strong className="text-navy">30–60 days</strong>.
                     </p>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h3 className="text-sm font-semibold text-navy mb-4">What to Expect</h3>
+                <h3 className="text-sm font-semibold text-navy mb-4">
+                  What to Expect
+                </h3>
                 <div className="space-y-0">
                   {processSteps.map((step, i) => (
                     <div key={step.title} className="relative pb-6 last:pb-0">
@@ -576,8 +648,12 @@ function StrategySessionSection() {
                           {step.step}
                         </div>
                         <div>
-                          <h4 className="text-xs font-semibold text-navy mb-0.5">{step.title}</h4>
-                          <p className="text-xs text-muted-foreground leading-relaxed">{step.desc}</p>
+                          <h4 className="text-xs font-semibold text-navy mb-0.5">
+                            {step.title}
+                          </h4>
+                          <p className="text-xs text-muted-foreground leading-relaxed">
+                            {step.desc}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -622,7 +698,8 @@ function FinalCTASection() {
           </h2>
 
           <p className="text-white/50 text-sm sm:text-base max-w-prose mx-auto mb-8 leading-relaxed">
-            Take the first step toward a wealth strategy built for everything you&apos;ve created.
+            Take the first step toward a wealth strategy built for everything
+            you&apos;ve created.
           </p>
 
           <Button
@@ -666,16 +743,27 @@ function ContactBlock() {
               />
             </div>
 
-            <h3 className="text-lg sm:text-xl font-semibold text-navy mb-1">Prasanth Kollaikal (PK)</h3>
-            <p className="text-gold-accent text-sm font-medium">Chief Financial Officer</p>
-            <p className="text-muted-foreground text-xs mb-6">American Wealth</p>
+            <h3 className="text-lg sm:text-xl font-semibold text-navy mb-1">
+              Prasanth Kollaikal (PK)
+            </h3>
+            <p className="text-gold-accent text-sm font-medium">
+              Chief Financial Officer
+            </p>
+            <p className="text-muted-foreground text-xs mb-6">
+              American Wealth
+            </p>
 
             <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-6 max-w-sm mx-auto">
               <div className="flex flex-col items-center gap-1">
                 <Phone className="w-4 h-4 text-gold-accent" />
                 <div>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider text-center">Phone</p>
-                  <a href="tel:+13176020574" className="text-xs sm:text-sm text-muted-foreground hover:text-navy transition-colors text-center block">
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider text-center">
+                    Phone
+                  </p>
+                  <a
+                    href="tel:+13176020574"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-navy transition-colors text-center block"
+                  >
                     +1 (317) 602-0574
                   </a>
                 </div>
@@ -684,8 +772,13 @@ function ContactBlock() {
               <div className="flex flex-col items-center gap-1">
                 <Mail className="w-4 h-4 text-gold-accent" />
                 <div>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider text-center">Email</p>
-                  <a href="mailto:pk@americanwealthcorp.com" className="text-xs sm:text-sm text-muted-foreground hover:text-navy transition-colors text-center block whitespace-nowrap">
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider text-center">
+                    Email
+                  </p>
+                  <a
+                    href="mailto:pk@americanwealthcorp.com"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-navy transition-colors text-center block whitespace-nowrap"
+                  >
                     pk@americanwealthcorp.com
                   </a>
                 </div>
