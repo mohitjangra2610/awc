@@ -696,7 +696,7 @@ function ContactBlock() {
               American Wealth
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-6 max-w-sm mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6 max-w-sm mx-auto">
               <div className="flex flex-col items-center gap-1">
                 <Phone className="w-4 h-4 text-gold-accent" />
                 <div>
@@ -720,7 +720,7 @@ function ContactBlock() {
                   </p>
                   <a
                     href="mailto:pk@americanwealthcorp.com"
-                    className="text-xs sm:text-sm text-muted-foreground hover:text-navy transition-colors text-center block break-all"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-navy transition-colors text-center block"
                   >
                     pk@americanwealthcorp.com
                   </a>
@@ -736,7 +736,7 @@ function ContactBlock() {
 
 export default function EntrepreneursPageUI() {
   return (
-    <div className="overflow-x-hidden">
+    <div>
       <HeroSection />
       <TrustBar />
       <QuestionCardsSection />
