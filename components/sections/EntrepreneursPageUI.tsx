@@ -34,11 +34,31 @@ import {
 import Image from "next/image";
 
 const trustBarItems = [
-  { icon: UserCheck, label: "Executive Retention" },
-  { icon: RefreshCw, label: "Business Continuity" },
-  { icon: TrendingUp, label: "Tax Efficiency" },
-  { icon: Heart, label: "Family Wealth" },
-  { icon: GitBranch, label: "Succession Planning" },
+  {
+    icon: UserCheck,
+    label: "Executive Retention",
+    subtext: "Attract, motivate and retain top talent to drive long-term success.",
+  },
+  {
+    icon: RefreshCw,
+    label: "Business Continuity",
+    subtext: "Build a strong foundation to ensure your business thrives for years to come.",
+  },
+  {
+    icon: TrendingUp,
+    label: "Tax Efficiency",
+    subtext: "Optimize strategies to reduce tax burden and keep more of what you earn.",
+  },
+  {
+    icon: Heart,
+    label: "Family Wealth",
+    subtext: "Protect your family and create generational wealth that lasts.",
+  },
+  {
+    icon: GitBranch,
+    label: "Succession Planning",
+    subtext: "Plan today for a smooth transition and a strong tomorrow.",
+  },
 ];
 
 const questionCards = [
@@ -255,71 +275,48 @@ function HeroSection() {
     </section>
   );
 }
-function TrustBar() {
+
+function SolutionsImpactSection() {
   return (
-    <section className="border-y border-border bg-accent/50 px-4 sm:px-6 lg:px-8">
+    <section className="py-16 lg:py-24 bg-white px-4 sm:px-6 lg:px-8">
       <Container>
-        <div className="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-10 gap-y-3 sm:gap-y-5 py-5 sm:py-7">
+        <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-16">
+          <h2 className="text-xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-navy">
+            Solutions that create lasting impact
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-6">
           {trustBarItems.map((item) => {
             const Icon = item.icon;
             return (
               <div
                 key={item.label}
-                className="flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground"
+                className="group relative flex flex-col items-center text-center rounded-2xl border border-border bg-white pt-9 sm:pt-12 pb-4 sm:pb-6 px-3 sm:px-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-gold-accent/20"
               >
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white ring-1 ring-foreground/5 flex items-center justify-center">
-                  <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold-accent" />
+                <div className="absolute -top-5 sm:-top-7 w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center">
+                  <svg
+                    viewBox="0 0 100 100"
+                    className="absolute inset-0 w-full h-full text-navy"
+                    fill="currentColor"
+                  >
+                    <polygon points="50,2 95,25 95,75 50,98 5,75 5,25" />
+                  </svg>
+                  <Icon className="relative z-10 w-5 h-5 sm:w-7 sm:h-7 text-gold-accent" />
                 </div>
-                <span>{item.label}</span>
+
+                <h3 className="text-xs sm:text-base font-bold text-navy uppercase tracking-tight mt-3 sm:mt-5 mb-2 sm:mb-3 leading-tight">
+                  {item.label}
+                </h3>
+
+                <div className="w-8 sm:w-10 h-px bg-gold-accent/40 mb-2 sm:mb-3" />
+
+                <p className="text-[11px] sm:text-sm text-muted-foreground leading-snug">
+                  {item.subtext}
+                </p>
               </div>
             );
           })}
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-function QuestionCardsSection() {
-  return (
-    <section className="py-16 lg:py-24 bg-white px-4 sm:px-6 lg:px-8">
-      <Container>
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-          <div>
-            <Badge
-              variant="secondary"
-              className="h-auto rounded-lg border-0 px-4 py-1.5 font-semibold bg-gold-accent/80 text-muted-foreground uppercase tracking-[0.15em] mb-5 max-sm:mx-auto max-sm:block"
-            >
-              Critical Questions
-            </Badge>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-navy leading-[1.15] mb-4">
-              Most owners build wealth.
-              <br />
-              <span className="text-gold-accent">Few protect it.</span>
-            </h2>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-prose">
-              Your business could earn another $1M next year. Before it does,
-              ask the hard questions.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {questionCards.map((q, i) => (
-              <div
-                key={i}
-                className="group rounded-xl border border-border bg-white p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-gold-accent/20"
-              >
-                <div className="flex items-start gap-4">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-navy text-white flex items-center justify-center text-xs font-semibold">
-                    {i + 1}
-                  </span>
-                  <p className="text-sm sm:text-base text-muted-foreground font-medium leading-relaxed">
-                    {q}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </Container>
     </section>
@@ -641,8 +638,7 @@ function FinalCTASection() {
           </h2>
 
           <p className="text-white/50 text-sm sm:text-base max-w-prose mx-auto mb-8 leading-relaxed">
-            Take the first step toward protecting everything
-            you&apos;ve built.
+            Take the first step toward protecting everything you&apos;ve built.
           </p>
 
           <Button
@@ -718,10 +714,10 @@ function ContactBlock() {
                   <p className="text-[10px] text-muted-foreground uppercase tracking-wider text-center">
                     Email
                   </p>
-                    <a
-                      href="mailto:pk@americanwealthcorp.com"
-                      className="text-xs sm:text-sm text-muted-foreground hover:text-navy transition-colors text-center block"
-                    >
+                  <a
+                    href="mailto:pk@americanwealthcorp.com"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-navy transition-colors text-center block"
+                  >
                     pk@americanwealthcorp.com
                   </a>
                 </div>
@@ -738,7 +734,7 @@ export default function EntrepreneursPageUI() {
   return (
     <div>
       <HeroSection />
-      <TrustBar />
+      <SolutionsImpactSection />
       <FiveConversationsSection />
       <WhoWeWorkWithSection />
       <ExecutionSection />
