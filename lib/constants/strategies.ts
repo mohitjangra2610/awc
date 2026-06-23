@@ -68,75 +68,98 @@ export interface Strategy {
 
 export const strategies: Strategy[] = [
   {
-    slug: "executive-bonus-strategy",
-    title: "Executive Bonus Strategy",
+    slug: "executive-retention",
+    title: "Executive Retention",
     subheading:
-      "Reward and retain key executives with tax-advantaged wealth accumulation strategies designed for growth-oriented businesses.",
-    content: `An Executive Bonus Plan (Section 162 Bonus Plan) allows businesses to provide key employees with life insurance benefits the employer can deduct. The company pays premiums on a policy owned by the executive, receiving a full tax deduction while the executive builds tax-advantaged cash value.\n\nEmployers select key employees to participate. Premiums are paid directly to the insurer on the executive's behalf. The executive owns the policy and accesses cash value for retirement, emergencies, or other needs. The employer deducts premiums as reasonable business expense.\n\nExecutives gain a valuable benefit with minimal out-of-pocket cost. The business retains top talent and receives a tax deduction. Cash value grows tax-deferred and can be accessed tax-advantaged. This creates a win-win that strengthens the employer-employee relationship.\n\nThis strategy is ideal for C-corporations, S-corporations, and LLCs seeking to attract, retain, and reward key executives without qualified plan complexity.`,
+      "Retain critical leadership talent with customized incentive strategies that strengthen loyalty, reward long-term commitment, and support business continuity.",
+
+    content: `Losing a key executive can disrupt operations, impact growth, and create costly leadership gaps. Executive Retention strategies help businesses create meaningful incentives that encourage top performers to remain committed to the organization's long-term success.
+
+These strategies can include deferred compensation arrangements, executive bonus programs, supplemental retirement benefits, and other customized reward structures designed around the needs of both the company and its leadership team. By aligning executive rewards with business goals, organizations create stronger engagement and long-term commitment.
+
+A well-designed retention strategy provides executives with valuable future benefits while giving business owners confidence that critical leadership remains focused on driving growth and protecting company value. These plans can also support succession planning, leadership stability, and smoother business transitions.
+
+Executive Retention solutions are commonly used by growing businesses, family-owned companies, and organizations that rely heavily on a small group of key leaders whose experience and expertise are essential to continued success.`,
+
     faqs: [
       {
-        q: "What types of businesses can use an Executive Bonus Plan?",
-        a: "Any business entity can implement an executive bonus plan, though C-corporations receive the most favorable tax treatment because they deduct the full premium.",
+        q: "Why is executive retention important?",
+        a: "Retaining key leaders helps maintain operational stability, preserve institutional knowledge, and avoid the significant costs associated with executive turnover.",
       },
       {
-        q: "Are there limits on how much can be contributed?",
-        a: "Unlike qualified retirement plans, there are no contribution limits. Premiums must represent reasonable compensation.",
+        q: "What types of retention strategies are commonly used?",
+        a: "Businesses often use deferred compensation plans, executive bonus arrangements, supplemental retirement benefits, and performance-based incentive programs.",
       },
       {
-        q: "Does the executive pay taxes on the premiums?",
-        a: "Yes, the executive reports the premium amount as taxable income. Strategies exist to offset this tax cost.",
+        q: "Can retention plans be customized for specific executives?",
+        a: "Yes. Retention strategies are typically tailored to the executive's role, contribution, tenure, and the company's long-term objectives.",
       },
     ],
   },
   {
-    slug: "buy-sell-funding-strategy",
-    title: "Buy-Sell Funding Strategy",
+    slug: "business-continuity",
+    title: "Business Continuity",
     subheading:
-      "Ensure a seamless business transition with funded buy-sell agreements that protect all stakeholders and preserve business value.",
-    content: `A buy-sell agreement is a legally binding contract ensuring smooth ownership transition when an owner dies, becomes disabled, or retires. Without proper funding, these agreements fail when needed most. Life insurance provides the most reliable funding source.\n\nBusiness owners enter a buy-sell agreement specifying future ownership transfer terms. Each owner's interest is funded with a life insurance policy. When an owner dies, surviving owners receive the death benefit tax-free and purchase the deceased owner's shares from their family.\n\nThe family receives fair value for the business interest. Surviving owners retain control without outside interference. The business continues operating without disruption. Creditors and employees have confidence in business continuity.\n\nCross-purchase agreements (owners buy policies on each other) and entity-purchase agreements (the business buys policies on each owner) have distinct tax and legal implications. Our team helps determine the right structure.`,
+      "Build a strong foundation to ensure your business thrives for years to come.",
+
+    content: `Unexpected events can threaten the stability and future of any business. Business Continuity strategies help organizations prepare for leadership transitions, key employee losses, ownership changes, and other disruptions that could impact operations and growth.
+
+A comprehensive continuity plan identifies potential risks, establishes succession strategies, and creates financial safeguards that allow the business to continue operating during periods of uncertainty. By proactively planning for the unexpected, business owners can protect employees, customers, and stakeholders while preserving the long-term value of the organization.
+
+Business Continuity planning often includes key person protection, succession planning, ownership transition strategies, and liquidity solutions designed to provide financial stability when critical events occur. These measures help reduce disruption, maintain confidence, and support ongoing business operations.
+
+Whether your organization is family-owned, partner-owned, or privately held, a well-structured continuity strategy provides peace of mind and helps ensure the business remains resilient for future generations.`,
+
     faqs: [
       {
-        q: "How is the buy-sell price determined?",
-        a: "The agreement should specify a valuation method agreed upon by all owners, reviewed and updated regularly to reflect current fair market value.",
+        q: "What is business continuity planning?",
+        a: "Business continuity planning is the process of preparing for unexpected events that could disrupt operations, ensuring the company can continue functioning and meeting its obligations.",
       },
       {
-        q: "Can disability be covered?",
-        a: "Yes. Disability buy-out insurance can be added to fund the purchase if an owner becomes disabled.",
+        q: "Who should have a business continuity strategy?",
+        a: "Any business that relies on key leaders, owners, or specialized employees can benefit from a continuity strategy, regardless of size or industry.",
       },
       {
-        q: "Is the death benefit taxable?",
-        a: "Life insurance proceeds received by a business or individual are generally received income tax-free.",
+        q: "What risks does business continuity planning address?",
+        a: "It helps prepare for events such as the death or disability of key personnel, leadership transitions, ownership changes, economic disruptions, and other operational risks.",
       },
     ],
   },
   {
-    slug: "key-person-protection-strategy",
-    title: "Key Person Protection Strategy",
-    subheading:
-      "Protect your business from the financial impact of losing a critical team member, founder, or executive whose contributions are essential to your success.",
-    content: `Key person insurance is a life insurance policy a business purchases on a critical employee. The business owns the policy, pays premiums, and is the beneficiary. If the key person dies, the business receives the death benefit tax-free to cover losses and transition costs.\n\nThe loss of a key executive, founder, or technical lead can devastate a business. Revenue drops, credit lines freeze, key relationships falter, and employee morale suffers. Key person insurance provides the capital to survive and rebuild.\n\nCoverage amount depends on the key person's revenue contribution, replacement cost, time needed to restore operations, and potential business value loss during transition.\n\nBeyond life insurance, key person coverage can include disability insurance protecting against long-term disability impact and business overhead expense insurance keeping the business running during transition.`,
+    slug: "succession-planning",
+    title: "Succession Planning",
+    subheading: "Plan today for a smooth transition and a strong tomorrow.",
+
+    content: `Every business will eventually face a leadership or ownership transition. Without a clear succession plan, uncertainty can disrupt operations, impact employee confidence, and reduce business value. Succession Planning helps business owners prepare for the future by creating a structured roadmap for leadership continuity and long-term success.
+
+A comprehensive succession strategy identifies future leaders, establishes ownership transition plans, and outlines the steps needed to maintain stability during periods of change. Whether the transition involves family members, business partners, key employees, or an outside buyer, proactive planning helps ensure the business continues operating smoothly.
+
+Succession Planning also helps protect relationships with employees, customers, vendors, and stakeholders by reducing uncertainty and providing clarity about the company's future direction. Proper planning can minimize disruption, preserve institutional knowledge, and maintain the value owners have worked years to build.
+
+Whether retirement is years away or approaching soon, creating a succession strategy today helps position your business for a successful transition and continued growth for future generations.`,
+
     faqs: [
       {
-        q: "Who qualifies as a key person?",
-        a: "Any employee whose loss would cause significant financial harm, including founders, top salespeople, technical leads, and key managers.",
+        q: "When should a business begin succession planning?",
+        a: "Ideally, succession planning should begin several years before an expected transition to allow sufficient time for leadership development and implementation.",
       },
       {
-        q: "Can the business name itself as beneficiary?",
-        a: "Yes. The business owns the policy, pays premiums, and is named as beneficiary.",
+        q: "Who can be a successor?",
+        a: "Successors may include family members, business partners, key employees, management teams, or qualified external buyers depending on the owner's goals.",
       },
       {
-        q: "How are premiums treated for tax purposes?",
-        a: "Premiums are not tax-deductible, but the death benefit is received income tax-free.",
+        q: "Why is succession planning important?",
+        a: "It helps ensure business continuity, protects company value, reduces transition risks, and provides clarity for employees, customers, and stakeholders.",
       },
       {
-        q: "How often should coverage be reviewed?",
-        a: "Annually, or whenever there are significant changes in the business or the key person's role.",
+        q: "Does succession planning only apply to retirement?",
+        a: "No. Succession planning also prepares businesses for unexpected events such as disability, death, leadership departures, or other unforeseen transitions.",
       },
     ],
   },
   {
-    slug: "advanced-tax-strategy",
-    title: "Advanced Tax Strategies For Business Owners",
+    slug: "tax-efficiency",
+    title: "Advanced Tax Efficiency Strategies For Business Owners",
     subheading:
       "Create opportunities for tax-efficient growth, flexible access to capital, family wealth transfer, and long-term liquidity.",
     sections: [
@@ -229,7 +252,7 @@ export const strategies: Strategy[] = [
     },
   },
   {
-    slug: "family-wealth-protection-strategy",
+    slug: "family-wealth",
     title: "Family Wealth Protection & Transfer Strategy",
     subheading:
       "Building Wealth Is Important. Making Sure Your Family Can Use It Is Essential. Help families create liquidity, protect wealth, simplify wealth transfer, and support future generations.",

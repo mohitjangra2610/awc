@@ -31,7 +31,7 @@ function renderSection(section: StrategySection, index: number) {
     case "benefits":
       return (
         <section key={index} className="space-y-4">
-          <h2 className="text-2xl font-bold text-navy">{section.title}</h2>
+          <h2 className="text-xl font-bold text-navy sm:text-2xl">{section.title}</h2>
           <div className="grid gap-3 sm:grid-cols-2">
             {section.items.map((item, i) => (
               <div
@@ -49,12 +49,12 @@ function renderSection(section: StrategySection, index: number) {
     case "why":
       return (
         <section key={index} className="space-y-4">
-          <h2 className="text-2xl font-bold text-navy">{section.title}</h2>
+          <h2 className="text-xl font-bold text-navy sm:text-2xl">{section.title}</h2>
           <ul className="space-y-3">
             {section.items.map((item, i) => (
               <li key={i} className="flex items-start gap-3">
                 <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-gold-accent" />
-                <span className="text-base leading-7 text-text-dim">
+                <span className="text-base leading-6 text-text-dim sm:leading-7">
                   {item}
                 </span>
               </li>
@@ -66,7 +66,7 @@ function renderSection(section: StrategySection, index: number) {
     case "tax-provisions":
       return (
         <section key={index} className="space-y-4">
-          <h2 className="text-2xl font-bold text-navy">{section.title}</h2>
+          <h2 className="text-xl font-bold text-navy sm:text-2xl">{section.title}</h2>
           <div className="grid gap-4">
             {section.provisions.map((p, i) => (
               <Card
@@ -80,7 +80,7 @@ function renderSection(section: StrategySection, index: number) {
                   <h3 className="mt-1 text-lg font-bold text-navy">
                     {p.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-7 text-text-dim">
+                  <p className="mt-2 text-sm leading-6 text-text-dim sm:leading-7">
                     {p.description}
                   </p>
                 </CardContent>
@@ -96,8 +96,8 @@ function renderSection(section: StrategySection, index: number) {
           key={index}
           className="rounded-2xl border border-border-muted bg-muted p-6 sm:p-8 text-center"
         >
-          <h2 className="text-2xl font-bold text-navy">{section.title}</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-text-dim">
+          <h2 className="text-xl font-bold text-navy sm:text-2xl">{section.title}</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-text-dim sm:text-lg sm:leading-8">
             {section.content}
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
@@ -118,7 +118,7 @@ function renderSection(section: StrategySection, index: number) {
         <section key={index}>
           <Card className="rounded-2xl border-border-muted shadow-sm">
             <CardContent className="space-y-5 p-6">
-              <h2 className="text-xl font-bold text-navy">{section.title}</h2>
+              <h2 className="text-lg font-bold text-navy sm:text-xl">{section.title}</h2>
               <div className="grid gap-2 sm:grid-cols-2">
                 {section.benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-2">
@@ -205,11 +205,11 @@ export default async function StrategyDetailPage({ params }: Props) {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold-accent">
               Business Owner Strategy
             </p>
-            <h1 className="text-3xl font-bold tracking-tight text-navy sm:text-5xl">
+            <h1 className="text-2xl font-bold tracking-tight text-navy sm:text-5xl">
               {strategy.title}
             </h1>
             {strategy.subheading ? (
-              <p className="text-lg leading-8 text-text-dim">
+              <p className="text-base leading-7 text-text-dim sm:text-lg sm:leading-8">
                 {strategy.subheading}
               </p>
             ) : null}
@@ -221,7 +221,7 @@ export default async function StrategyDetailPage({ params }: Props) {
             </div>
           ) : (
             <article className="prose prose-neutral max-w-none">
-              <p className="whitespace-pre-line text-base leading-8 text-text-dim">
+              <p className="whitespace-pre-line text-base leading-7 text-text-dim sm:leading-8">
                 {strategy.content}
               </p>
             </article>
@@ -229,7 +229,7 @@ export default async function StrategyDetailPage({ params }: Props) {
 
           {strategy.faqs.length > 0 ? (
             <section className="space-y-4">
-              <h2 className="text-2xl font-bold text-navy">
+              <h2 className="text-xl font-bold text-navy sm:text-2xl">
                 Frequently Asked Questions
               </h2>
               <Accordion type="single" collapsible className="w-full">
@@ -238,7 +238,7 @@ export default async function StrategyDetailPage({ params }: Props) {
                     <AccordionTrigger className="text-left text-base font-semibold">
                       {faq.q}
                     </AccordionTrigger>
-                    <AccordionContent className="text-sm leading-7 text-text-dim">
+                    <AccordionContent className="text-sm leading-6 text-text-dim sm:leading-7">
                       {faq.a}
                     </AccordionContent>
                   </AccordionItem>

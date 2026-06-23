@@ -27,86 +27,46 @@ import {
   Award,
   AlertTriangle,
   UserX,
-  BarChart3,
-  Scale,
   Clock,
 } from "lucide-react";
 import Image from "next/image";
 
-const trustBarItems = [
+const SolutionsImpactItems = [
   {
     icon: UserCheck,
     label: "Executive Retention",
     subtext: "Attract, motivate and retain top talent to drive long-term success.",
+    href: "/entrepreneur/executive-retention",
   },
   {
     icon: RefreshCw,
     label: "Business Continuity",
     subtext: "Build a strong foundation to ensure your business thrives for years to come.",
+    href: "/entrepreneur/business-continuity",
+      
   },
   {
     icon: TrendingUp,
     label: "Tax Efficiency",
     subtext: "Optimize strategies to reduce tax burden and keep more of what you earn.",
+    href: "/entrepreneur/tax-efficiency",
   },
   {
     icon: Heart,
     label: "Family Wealth",
     subtext: "Protect your family and create generational wealth that lasts.",
+    href: "/entrepreneur/family-wealth",
   },
   {
     icon: GitBranch,
     label: "Succession Planning",
     subtext: "Plan today for a smooth transition and a strong tomorrow.",
+    href: "/entrepreneur/succession-planning",
   },
 ];
 
-const questionCards = [
-  "What if you couldn't work for six months?",
-  "Is your family financially protected?",
-  "Do you have a succession plan?",
-  "Are you maximizing tax-efficient wealth?",
-  "Can your business retain key executives?",
-  "What's your wealth transfer strategy?",
-];
 
-const fiveCards = [
-  {
-    icon: BarChart3,
-    title: "Advanced Tax Strategy",
-    desc: "Minimize taxes, maximize growth.",
-    tags: ["Tax Optimization", "Growth", "Compliance"],
-    href: "/entrepreneur/advanced-tax-strategy",
-  },
-  {
-    icon: Heart,
-    title: "Family Wealth Protection",
-    desc: "Preserve family wealth across generations.",
-    tags: ["Legacy", "Asset Protection", "Security"],
-    href: "/entrepreneur/family-wealth-protection-strategy",
-  },
-  {
-    icon: UserCheck,
-    title: "Executive Bonus Strategy",
-    desc: "Reward and retain top talent.",
-    tags: ["Retention", "Tax Efficiency", "Loyalty"],
-    href: "/entrepreneur/executive-bonus-strategy",
-  },
-  {
-    icon: Scale,
-    title: "Buy-Sell Funding Strategy",
-    desc: "Fund a smooth business transition.",
-    tags: ["Continuity", "Fair Valuation", "Liquidity"],
-    href: "/entrepreneur/buy-sell-funding-strategy",
-  },
-  {
-    icon: Shield,
-    title: "Key Person Protection",
-    desc: "Protect your business if a leader exits.",
-    tags: ["Risk Mitigation", "Stability", "Confidence"],
-    href: "/entrepreneur/key-person-protection-strategy",
-  },
-];
+
 
 const audienceItems = [
   { icon: TrendingUp, label: "Growth Entrepreneurs" },
@@ -281,40 +241,54 @@ function SolutionsImpactSection() {
     <section className="py-16 lg:py-24 bg-white px-4 sm:px-6 lg:px-8">
       <Container>
         <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-16">
+          <Badge
+            variant="secondary"
+            className="h-auto rounded-lg border-0 px-4 py-1.5 font-semibold bg-gold-accent/80 text-muted-foreground uppercase tracking-[0.15em] mb-5 mx-auto"
+          >
+           Strategic Framework
+          </Badge>
           <h2 className="text-xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-navy">
-            Solutions that create lasting impact
+            Five conversations every business owner needs
           </h2>
         </div>
 
+
+
+
+
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-6">
-          {trustBarItems.map((item) => {
+          {SolutionsImpactItems.map((item) => {
             const Icon = item.icon;
             return (
-              <div
+              <Link
                 key={item.label}
-                className="group relative flex flex-col items-center text-center rounded-2xl border border-border bg-white pt-9 sm:pt-12 pb-4 sm:pb-6 px-3 sm:px-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-gold-accent/20"
+                href={item.href}
               >
-                <div className="absolute -top-5 sm:-top-7 w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center">
-                  <svg
-                    viewBox="0 0 100 100"
-                    className="absolute inset-0 w-full h-full text-navy"
-                    fill="currentColor"
-                  >
-                    <polygon points="50,2 95,25 95,75 50,98 5,75 5,25" />
-                  </svg>
-                  <Icon className="relative z-10 w-5 h-5 sm:w-7 sm:h-7 text-gold-accent" />
+                <div
+                  className="group relative flex flex-col items-center text-center rounded-2xl border border-border bg-white pt-9 sm:pt-12 pb-4 sm:pb-6 px-3 sm:px-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-gold-accent/20"
+                >
+                  <div className="absolute -top-5 sm:-top-7 w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center">
+                    <svg
+                      viewBox="0 0 100 100"
+                      className="absolute inset-0 w-full h-full text-navy"
+                      fill="currentColor"
+                    >
+                      <polygon points="50,2 95,25 95,75 50,98 5,75 5,25" />
+                    </svg>
+                    <Icon className="relative z-10 w-5 h-5 sm:w-7 sm:h-7 text-gold-accent" />
+                  </div>
+
+                  <h3 className="text-xs sm:text-base font-bold text-navy uppercase tracking-tight mt-3 sm:mt-5 mb-2 sm:mb-3 leading-tight">
+                    {item.label}
+                  </h3>
+
+                  <div className="w-8 sm:w-10 h-px bg-gold-accent/40 mb-2 sm:mb-3" />
+
+                  <p className="text-[11px] sm:text-sm text-muted-foreground leading-snug">
+                    {item.subtext}
+                  </p>
                 </div>
-
-                <h3 className="text-xs sm:text-base font-bold text-navy uppercase tracking-tight mt-3 sm:mt-5 mb-2 sm:mb-3 leading-tight">
-                  {item.label}
-                </h3>
-
-                <div className="w-8 sm:w-10 h-px bg-gold-accent/40 mb-2 sm:mb-3" />
-
-                <p className="text-[11px] sm:text-sm text-muted-foreground leading-snug">
-                  {item.subtext}
-                </p>
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -735,7 +709,6 @@ export default function EntrepreneursPageUI() {
     <div>
       <HeroSection />
       <SolutionsImpactSection />
-      <FiveConversationsSection />
       <WhoWeWorkWithSection />
       <ExecutionSection />
       <CostOfWaitingSection />
