@@ -297,69 +297,6 @@ function SolutionsImpactSection() {
   );
 }
 
-function FiveConversationsSection() {
-  return (
-    <section
-      id="strategies"
-      className="py-16 lg:py-24 bg-accent/50 px-4 sm:px-6 lg:px-8"
-    >
-      <Container>
-        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
-          <Badge
-            variant="secondary"
-            className="h-auto rounded-lg border-0 px-4 py-1.5 font-semibold bg-gold-accent/80 text-muted-foreground uppercase tracking-[0.15em] mb-5 mx-auto"
-          >
-            Strategic Framework
-          </Badge>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-navy leading-[1.15]">
-            Five conversations every business owner needs
-          </h2>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-5">
-          {fiveCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <Link
-                key={card.title}
-                href={card.href}
-                className="group rounded-xl border border-border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-gold-accent/20 flex flex-col"
-              >
-                <div className="w-10 h-10 rounded-lg bg-navy flex items-center justify-center mb-4 transition-colors duration-300 group-hover:bg-gold-accent">
-                  <Icon className="w-4 h-4 text-white" />
-                </div>
-
-                <h3 className="text-sm font-semibold text-navy mb-2">
-                  {card.title}
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed mb-4 flex-1">
-                  {card.desc}
-                </p>
-
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {card.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-md"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-navy group-hover:text-gold-accent transition-colors duration-300">
-                  Learn More
-                  <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5" />
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </Container>
-    </section>
-  );
-}
-
 function WhoWeWorkWithSection() {
   return (
     <section className="py-16 lg:py-24 bg-white px-4 sm:px-6 lg:px-8">
