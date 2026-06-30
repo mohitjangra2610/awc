@@ -1,5 +1,6 @@
 "use client";
 
+import { getEventTimestamp } from "@/lib/date-utils";
 import { EventItem, EventStatus, EventType } from "@/type/supabase";
 import { useCallback, useMemo, useState } from "react";
 
@@ -23,11 +24,6 @@ interface UseEventsReturn {
   resetFilter: () => void;
 }
 
-function getEventTimestamp(date: string): number {
-  const timestamp = new Date(date).getTime();
-  return Number.isNaN(timestamp) ? 0 : timestamp;
-}
-
 function isVisibleHomeEvent(status: EventStatus): boolean {
   return status === "ongoing" || status === "upcoming";
 }
@@ -39,8 +35,8 @@ function normalizeEvents(events: EventItem[]): EventItem[] {
     .sort(
       (left, right) =>
         left.display_order - right.display_order ||
-        getEventTimestamp(left.event_addresses[0]?.start_at ?? "") -
-          getEventTimestamp(right.event_addresses[0]?.start_at ?? "")
+        getEventTimestamp(left.event_addresses[0]?.start_at) -
+          getEventTimestamp(right.event_addresses[0]?.start_at)
     );
 }
 

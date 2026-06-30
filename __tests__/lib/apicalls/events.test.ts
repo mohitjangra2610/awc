@@ -65,9 +65,9 @@ describe("getEvents", () => {
 
   it("sorts events by display_order then start_at", async () => {
     const events = [
-      { ...validEvent, id: 1, display_order: 2, start_at: "2026-08-01T00:00:00Z" },
-      { ...validEvent, id: 2, display_order: 1, start_at: "2026-07-01T00:00:00Z" },
-      { ...validEvent, id: 3, display_order: 1, start_at: "2026-06-01T00:00:00Z" },
+      { ...validEvent, id: 1, display_order: 2, event_addresses: [{ id: "a1", event_id: "1", address_line_1: "", city: "", zipcode: "", state: "", country: "", google_map_location: "", start_at: "2026-08-01T00:00:00Z", end_at: null, location_label: null, display_order: 0, created_at: "" }] },
+      { ...validEvent, id: 2, display_order: 1, event_addresses: [{ id: "a1", event_id: "2", address_line_1: "", city: "", zipcode: "", state: "", country: "", google_map_location: "", start_at: "2026-07-01T00:00:00Z", end_at: null, location_label: null, display_order: 0, created_at: "" }] },
+      { ...validEvent, id: 3, display_order: 1, event_addresses: [{ id: "a1", event_id: "3", address_line_1: "", city: "", zipcode: "", state: "", country: "", google_map_location: "", start_at: "2026-06-01T00:00:00Z", end_at: null, location_label: null, display_order: 0, created_at: "" }] },
     ]
 
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
@@ -112,7 +112,7 @@ describe("getEvents", () => {
     expect(result[0].event_tag).toBe("free")
     expect(result[0].status).toBe("upcoming")
     expect(result[0].is_active).toBe(true)
-    expect(result[0].event_addresses).toBeNull()
+    expect(result[0].event_addresses).toEqual([])
     expect(result[0].event_organizers).toEqual([])
     expect(result[0].event_gallery).toEqual([])
   })

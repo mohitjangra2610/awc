@@ -1,6 +1,7 @@
 import { fetchFromAPI } from "@/lib/api-client";
 import { getMemoryCachedData } from "@/lib/cache/memory-cache";
 import { DataSource, DataSourceType } from "@/lib/constants/enums";
+import { getEventTimestamp } from "@/lib/date-utils";
 import type {
   EventAddress,
   EventGallery,
@@ -75,8 +76,8 @@ function normalizeAddresses(
     .sort(
       (left, right) =>
         (left.display_order ?? 0) - (right.display_order ?? 0) ||
-        new Date(left.start_at ?? 0).getTime() -
-          new Date(right.start_at ?? 0).getTime()
+        getEventTimestamp(left.start_at) -
+          getEventTimestamp(right.start_at)
     );
 }
 
@@ -203,7 +204,7 @@ export async function getEvents(
     .sort(
       (left, right) =>
         left.display_order - right.display_order ||
-        new Date(left.event_addresses[0]?.start_at ?? 0).getTime() -
-          new Date(right.event_addresses[0]?.start_at ?? 0).getTime()
+        getEventTimestamp(left.event_addresses[0]?.start_at) -
+          getEventTimestamp(right.event_addresses[0]?.start_at)
     );
 }

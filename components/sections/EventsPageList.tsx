@@ -4,24 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CalendarDays, MapPin, Video } from "lucide-react";
 
+import { formatDate } from "@/lib/date-utils";
 import type { EventItem } from "@/type/supabase";
 import { useEvents } from "@/hooks/useevent";
 
 interface EventsPageListProps {
   readonly initialEvents: readonly EventItem[];
-}
-
-function formatEventDate(date: string): string {
-  return new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-    timeZoneName: "short",
-  }).format(new Date(date));
 }
 
 function getEventLocation(event: EventItem): string {
@@ -117,9 +105,17 @@ export function EventsPageList({
                 <div className="flex items-start gap-2 text-foreground sm:border-r sm:border-border sm:pr-5">
                   <CalendarDays className="mt-1 h-4 w-4 shrink-0 text-muted-foreground sm:hidden" />
                   <p className="text-sm font-medium leading-6 sm:text-base">
-                    {event.event_addresses?.[0]?.start_at
-                      ? formatEventDate(event.event_addresses[0].start_at)
-                      : "Date TBA"}
+                    {formatDate(event.event_addresses?.[0]?.start_at, {
+                      locale: "en-US",
+                      weekday: "long",
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                      hour: "numeric",
+                      minute: "2-digit",
+                      hour12: true,
+                      timeZoneName: "short",
+                    })}
                   </p>
                 </div>
 
